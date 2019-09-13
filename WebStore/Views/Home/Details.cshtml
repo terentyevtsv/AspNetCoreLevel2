@@ -1,0 +1,45 @@
+﻿@model WebStore.Models.EmployeeView
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Index</title>
+</head>
+<body>
+    @*Информация по выбранному сотруднику с дополнительными свойствами*@
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>@Model.SurName</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td>@Model.Patronymic</td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <td>Дата рождения</td>
+            <td>@Model.BirthDate.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Дата приема на работу</td>
+            <td>@Model.HireDate.ToShortDateString()</td>
+        </tr>
+    </table>
+
+    @*Ссылка назад к списку сотрудников (действие Index)*@
+    @Html.ActionLink("Назад", "Index");
+</body>
+</html>
+

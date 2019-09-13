@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebStore.Models.EmployeeView>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Index</title>
+</head>
+<body>
+    <table>
+        @*Вывод списка сотрудников с основными параметрами в представлении*@
+        @foreach(var employeeView in Model)
+        {
+            <tr>
+                <td>@employeeView.SurName</td>
+                <td>@employeeView.FirstName</td>
+                <td>@employeeView.Patronymic</td>
+                <td>@employeeView.Age</td>
+                <td>@Html.ActionLink("Детали", "Details", new { id = employeeView.Id }) </td> @*Ссылка на карточку сотрудника*@
+            </tr>
+        }
+    </table>
+</body>
+</html>
