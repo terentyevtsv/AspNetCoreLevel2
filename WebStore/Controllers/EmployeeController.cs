@@ -9,11 +9,11 @@ namespace WebStore.Controllers
     /// <summary>
     /// Контроллер для работы со списком сотрудников
     /// </summary>
-    public class HomeController : Controller
+    public class EmployeeController : Controller
     {
         private readonly List<EmployeeView> _employeeViews;
 
-        public HomeController()
+        public EmployeeController()
         {
             // Заготовленный список сотрудников
             _employeeViews = new List<EmployeeView>
