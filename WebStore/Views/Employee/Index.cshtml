@@ -1,14 +1,8 @@
-﻿@model IEnumerable<WebStore.Models.EmployeeView>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" charset="utf-8" />
-    <title>Index</title>
-</head>
-<body>
+﻿@model IEnumerable<EmployeeView>
+<div class="container">
     <table>
         @*Вывод списка сотрудников с основными параметрами в представлении*@
-        @foreach(var employeeView in Model)
+        @foreach (var employeeView in Model)
         {
             <tr>
                 <td>@employeeView.SurName</td>
@@ -19,5 +13,4 @@
             </tr>
         }
     </table>
-</body>
-</html>
+</div>    

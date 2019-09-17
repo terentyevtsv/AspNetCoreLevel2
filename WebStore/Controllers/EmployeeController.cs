@@ -60,6 +60,9 @@ namespace WebStore.Controllers
             var employeeView = _employeeViews
                 .SingleOrDefault(emp => emp.Id == id);
 
+            if (ReferenceEquals(employeeView, null))
+                return NotFound();
+
             return View(employeeView);
         }        
     }
