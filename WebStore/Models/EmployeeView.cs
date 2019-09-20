@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebStore.Models
 {
@@ -32,11 +33,13 @@ namespace WebStore.Models
         /// <summary>
         /// Дата рождения
         /// </summary>
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
         /// Дата приема на работу
         /// </summary>
+        [DataType(DataType.Date)]
         public DateTime HireDate { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EmployeeView>
 <div class="container">
     <a class="btn btn-default" asp-action="Edit">Добавить</a>
-    <table>
+    <table class="table">
         @*Вывод списка сотрудников с основными параметрами в представлении*@
         @foreach (var employeeView in Model)
         {
@@ -10,9 +10,13 @@
                 <td>@employeeView.FirstName</td>
                 <td>@employeeView.Patronymic</td>
                 <td>@employeeView.Age</td>
-                <td>@Html.ActionLink("Детали", "Details", new {id = employeeView.Id}) </td> @*Ссылка на карточку сотрудника*@
-                <td><a asp-action="Edit" asp-route-id="@employeeView.Id">Редактировать</a></td>
-                <td><a asp-action="Delete" asp-route-id="@employeeView.Id">Удалить</a></td>
+                <td>
+                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@employeeView.Id" title="Детали">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
+                </td> @*Ссылка на карточку сотрудника*@
+                <td><a asp-action="Edit" asp-route-id="@employeeView.Id" title="Изменить"><i class="fa fa-edit"></i></a></td>
+                <td><a asp-action="Delete" asp-route-id="@employeeView.Id" title="Удалить"><i class="fa fa-cut"></i></a></td>
             </tr>
         }
     </table>

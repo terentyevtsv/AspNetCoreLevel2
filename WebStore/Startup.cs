@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.Infrasructure.Interfaces;
+using WebStore.Infrasructure.Services;
 
 namespace WebStore
 {
@@ -12,6 +14,9 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // Добавляем разрешение зависимости
+            services.AddSingleton<IEmployeeService, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

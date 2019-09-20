@@ -6,13 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Blog\**" />
+    <Content Remove="Views\Blog\**" />
+    <EmbeddedResource Remove="Views\Blog\**" />
+    <None Remove="Views\Blog\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Blog\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

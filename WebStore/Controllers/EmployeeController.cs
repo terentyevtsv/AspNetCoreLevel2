@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using WebStore.Infrasructure.Interfaces;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -9,32 +7,15 @@ namespace WebStore.Controllers
     /// <summary>
     /// Контроллер для работы со списком сотрудников
     /// </summary>
+    [Route("users")]
     public class EmployeeController : Controller
     {
-        private static readonly List<EmployeeView> _employeeViews
-            = new List<EmployeeView>
-            {
-                new EmployeeView
-                {
-                    Id = 1,
-                    SurName = "Терентьев",
-                    FirstName = "Сергей",
-                    Patronymic = "Викторович",
-                    Age = 29,
-                    BirthDate = new DateTime(1989, 9, 21),
-                    HireDate = new DateTime(2011, 12, 5)
-                },
-                new EmployeeView
-                {
-                    Id = 2,
-                    SurName = "Иванов",
-                    FirstName = "Андрей",
-                    Patronymic = "Владимирович",
-                    Age = 35,
-                    BirthDate = new DateTime(1984, 8, 1),
-                    HireDate = new DateTime(2009, 6, 1)
-                }
-            };
+        private readonly IEmployeeService _employeeService;
+
+        public EmployeeController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
 
         /// <summary>
         /// Действие выводит весь список сотрудников
@@ -42,7 +23,7 @@ namespace WebStore.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            return View(_employeeViews);
+            return View(_employeeService.GetAll());
         }
 
         /// <summary>
@@ -50,10 +31,10 @@ namespace WebStore.Controllers
         /// </summary>
         /// <param name="id">id выбранного сотрудника</param>
         /// <returns></returns>
+        [Route("{id}")]
         public IActionResult Details(int id)
         {
-            var employeeView = _employeeViews
-                .SingleOrDefault(emp => emp.Id == id);
+            var employeeView = _employeeService.GetById(id);
 
             if (ReferenceEquals(employeeView, null))
                 return NotFound();
@@ -67,12 +48,15 @@ namespace WebStore.Controllers
         /// </summary>
         /// <param name="id">id сотрудника</param>
         /// <returns></returns>
+        [Route("Edit/{id?}")]
         public IActionResult Edit(int? id)
         {
             var employeeView = id.HasValue
-                ? _employeeViews
-                    .SingleOrDefault(emp => emp.Id == id.Value)
+                ? _employeeService.GetById(id.Value)
                 : new EmployeeView();
+
+            if (ReferenceEquals(employeeView, null))
+                return NotFound();
 
             return View(employeeView);
         }
@@ -83,22 +67,18 @@ namespace WebStore.Controllers
         /// <param name="employeeView">Модель сотрудника</param>
         /// <returns>Возвращает обновленный список сотрудников/returns>
         [HttpPost]
+        [Route("Edit/{id?}")]
         public IActionResult Edit(EmployeeView employeeView)
         {
             if (employeeView.Id == 0)
             {
-                var id = _employeeViews.Any()
-                    ? _employeeViews.Max(emp => emp.Id) + 1
-                    : 1;
-                employeeView.Id = id;
-
-                _employeeViews.Add(employeeView);
+                _employeeService.AddNew(employeeView);
+                _employeeService.Commit();
 
                 return RedirectToAction("Index");
             }
 
-            var tmpEmployeeView = _employeeViews
-                .SingleOrDefault(emp => emp.Id == employeeView.Id);
+            var tmpEmployeeView = _employeeService.GetById(employeeView.Id);
             if (ReferenceEquals(tmpEmployeeView, null))
                 return NotFound();
 
@@ -109,6 +89,8 @@ namespace WebStore.Controllers
             tmpEmployeeView.Patronymic = employeeView.Patronymic;
             tmpEmployeeView.SurName = employeeView.SurName;
 
+            _employeeService.Commit();
+
             return RedirectToAction("Index");
         }
 
@@ -117,12 +99,12 @@ namespace WebStore.Controllers
         /// </summary>
         /// <param name="id">id сотрудника</param>
         /// <returns>Возвращет</returns>
+        [Route("delete/{id}")]
         public IActionResult Delete(int id)
         {
-            var employeeView = _employeeViews
-                .SingleOrDefault(emp => emp.Id == id);
+            var employeeView = _employeeService.GetById(id);
             if (!ReferenceEquals(employeeView, null))
-                _employeeViews.Remove(employeeView);
+                _employeeService.Delete(employeeView.Id);
 
             return RedirectToAction("Index");
         }
