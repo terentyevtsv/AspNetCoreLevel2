@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Infrasructure.Helpers;
 using WebStore.Infrasructure.Interfaces;
 using WebStore.Models;
 
@@ -70,6 +72,33 @@ namespace WebStore.Controllers
         [Route("Edit/{id?}")]
         public IActionResult Edit(EmployeeView employeeView)
         {
+            const string ageOnHireDateError = "Возраст на дату найма не в пределах от 18 до 75 лет";
+            const string cmpBirthAndHireDate = "Дата рождения после даты найма или они совпадают";
+
+            var years = DateHelper.GetAge(
+                employeeView.BirthDate, employeeView.HireDate);
+            if (years < 18 || years > 75)
+            {
+                ModelState.AddModelError(
+                    "Age", ageOnHireDateError);
+            }
+
+            if (employeeView.Age < years)
+            {
+                ModelState.AddModelError("Age", 
+                    "Текущий возраст сотрудника меньше чем возраст на дату найма");
+            }
+
+            if (employeeView.BirthDate >= employeeView.HireDate)
+            {
+                ModelState.AddModelError("BirthDate", cmpBirthAndHireDate);
+                ModelState.AddModelError("HireDate", cmpBirthAndHireDate);
+            }
+
+
+            if (!ModelState.IsValid)
+                return View(employeeView);
+
             if (employeeView.Id == 0)
             {
                 _employeeService.AddNew(employeeView);

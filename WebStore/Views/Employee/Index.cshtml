@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EmployeeView>
 <div class="container">
     <a class="btn btn-default" asp-action="Edit">Добавить</a>
-    <table class="table">
+    <table class="table table-bordered">
         @*Вывод списка сотрудников с основными параметрами в представлении*@
         @foreach (var employeeView in Model)
         {
