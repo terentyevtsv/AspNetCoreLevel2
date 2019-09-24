@@ -9,11 +9,11 @@ namespace WebStore.Infrasructure.Services
     /// <summary>
     /// Класс реализующий интерфейс сотрудника в памяти приложения
     /// </summary>
-    public class EmployeeService : IEmployeeService
+    public class MemoryEmployeeService : IEmployeeService
     {
         private readonly List<EmployeeView> _employees;
 
-        public EmployeeService()
+        public MemoryEmployeeService()
         {
             _employees = new List<EmployeeView>
             {
