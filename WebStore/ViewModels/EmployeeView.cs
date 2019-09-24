@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.Models
+namespace WebStore.ViewModels
 {
     public class EmployeeView
     {

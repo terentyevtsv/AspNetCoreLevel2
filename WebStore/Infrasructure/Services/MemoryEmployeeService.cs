@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebStore.Infrasructure.Interfaces;
-using WebStore.Models;
+using WebStore.ViewModels;
 
 namespace WebStore.Infrasructure.Services
 {

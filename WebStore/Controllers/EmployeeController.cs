@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrasructure.Helpers;
 using WebStore.Infrasructure.Interfaces;
-using WebStore.Models;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
