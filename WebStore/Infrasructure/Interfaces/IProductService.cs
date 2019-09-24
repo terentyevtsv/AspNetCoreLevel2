@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Filters;
 
 namespace WebStore.Infrasructure.Interfaces
 {
@@ -16,5 +17,11 @@ namespace WebStore.Infrasructure.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<Brand> GetBrands();
+
+        /// <summary>
+        /// Товары
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Product> GetProducts(ProductsFilter filter);
     }
 }
