@@ -9,7 +9,7 @@ namespace WebStore.Infrasructure.Interfaces
         /// Все секции
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Section> GetSections();
+        IEnumerable<Category> GetCategories();
 
         /// <summary>
         /// Все бренды
