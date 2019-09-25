@@ -9,13 +9,13 @@ namespace WebStore.Infrasructure.Services
 {
     public class MemoryProductService : IProductService
     {
-        private readonly List<Category> _sections;
+        private readonly List<Category> _categories;
         private readonly List<Brand> _brands;
         private readonly List<Product> _products;
 
         public MemoryProductService()
         {
-            _sections = new List<Category>
+            _categories = new List<Category>
             {
                 new Category
                 {
@@ -403,7 +403,7 @@ namespace WebStore.Infrasructure.Services
 
         public IEnumerable<Category> GetCategories()
         {
-            return _sections;
+            return _categories;
         }
 
         public IEnumerable<Brand> GetBrands()

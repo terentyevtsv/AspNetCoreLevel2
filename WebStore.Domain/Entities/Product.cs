@@ -5,11 +5,6 @@ namespace WebStore.Domain.Entities
 {
     public class Product : NamedEntity, IOrderedEntity
     {
-        public Product()
-        {
-            
-        }
-
         public int Order { get; set; }
 
         public int CategoryId { get; set; }
