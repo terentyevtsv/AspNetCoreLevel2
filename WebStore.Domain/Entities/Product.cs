@@ -5,6 +5,11 @@ namespace WebStore.Domain.Entities
 {
     public class Product : NamedEntity, IOrderedEntity
     {
+        public Product()
+        {
+            
+        }
+
         public int Order { get; set; }
 
         public int CategoryId { get; set; }
@@ -20,5 +25,15 @@ namespace WebStore.Domain.Entities
         /// адрес картинки
         /// </summary>
         public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// Новый товар
+        /// </summary>
+        public bool IsNew { get; set; }
+
+        /// <summary>
+        /// Распродажа
+        /// </summary>
+        public bool IsSale { get; set; }
     }
 }
