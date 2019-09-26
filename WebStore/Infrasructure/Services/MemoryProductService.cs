@@ -133,7 +133,7 @@ namespace WebStore.Infrasructure.Services
                 {
                     Id = 17,
                     Name = "Gucci",
-                    Order = 1,
+                    Order = 8,
                     ParentId = 7
                 },
                 new Category
