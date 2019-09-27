@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebStore.Domain.Filters;
+using WebStore.DomainNew.Filters;
 using WebStore.Infrasructure.Interfaces;
 using WebStore.ViewModels;
 

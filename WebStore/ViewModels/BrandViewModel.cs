@@ -1,4 +1,4 @@
-﻿using WebStore.Domain.Entities.Base.Interfaces;
+﻿using WebStore.DomainNew.Entities.Base.Interfaces;
 
 namespace WebStore.ViewModels
 {

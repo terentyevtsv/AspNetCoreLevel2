@@ -1,15 +1,23 @@
-﻿using WebStore.Domain.Entities.Base;
-using WebStore.Domain.Entities.Base.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.DomainNew.Entities.Base;
+using WebStore.DomainNew.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.Entities
+namespace WebStore.DomainNew.Entities
 {
+    [Table("Products")]
     public class Product : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
 
         public int CategoryId { get; set; }
 
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
+
         public int? BrandId { get; set; }
+
+        [ForeignKey("BrandId")]
+        public virtual Brand Brand { get; set; }
 
         /// <summary>
         /// Цена
