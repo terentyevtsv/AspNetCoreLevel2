@@ -12,5 +12,8 @@ namespace WebStore.ViewModels
 
         [Required, DataType(DataType.Password), Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
+
+        [Required, DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 }

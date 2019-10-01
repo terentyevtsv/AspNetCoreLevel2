@@ -5,7 +5,7 @@ namespace WebStore.ViewComponents
 {
     public class LoginLogoutViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             return View();
         }

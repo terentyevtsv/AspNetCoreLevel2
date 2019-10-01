@@ -20,12 +20,36 @@ namespace WebStore.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel());
         }
 
-        public IActionResult Logout()
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+                return View(loginViewModel);
+
+            var loginResult = await _signInManager.PasswordSignInAsync(
+                loginViewModel.UserName, loginViewModel.Password, 
+                loginViewModel.RememberMe, false);
+
+            if (!loginResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Вход невозможен");
+                return View(loginViewModel);
+            }
+
+            if (Url.IsLocalUrl(loginViewModel.ReturnUrl))
+                return Redirect(loginViewModel.ReturnUrl);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()
@@ -33,13 +57,15 @@ namespace WebStore.Controllers
             return View(new RegisterUserViewModel());
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel registerUserViewModel)
         {
             if (ModelState.IsValid)
             {
                 var user = new User
                 {
-                    UserName = registerUserViewModel.UserName
+                    UserName = registerUserViewModel.UserName,
+                    Email = registerUserViewModel.Email
                 };
 
                 var createResult = await _userManager.CreateAsync(user,
