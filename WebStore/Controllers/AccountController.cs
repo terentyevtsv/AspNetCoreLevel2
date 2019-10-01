@@ -23,6 +23,11 @@ namespace WebStore.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
         public IActionResult Register()
         {
             return View(new RegisterUserViewModel());

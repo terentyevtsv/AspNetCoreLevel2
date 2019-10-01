@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Protocols;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Infrasructure.Interfaces;
