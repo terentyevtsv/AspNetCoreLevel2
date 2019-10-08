@@ -6,26 +6,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@ViewBag.Title</title>
-    @*<environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css"/>
+    <environment include="Development">
         <link rel="stylesheet" href="~/css/animate.css" />
-        <link rel="stylesheet" href="~/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="~/css/main.css" />
         <link rel="stylesheet" href="~/css/prettyPhoto.css" />
         <link rel="stylesheet" href="~/css/price-range.css" />
         <link rel="stylesheet" href="~/css/responsive.css" />
     </environment>
     <environment exclude="Development">
-        <link href="~/css/bootstrap.min.css" rel="stylesheet">
         <link href="~/css/site.min.css" rel="stylesheet"/>
-    </environment>*@
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/css/prettyPhoto.css" rel="stylesheet">
-    <link href="~/css/price-range.css" rel="stylesheet">
-    <link href="~/css/animate.css" rel="stylesheet">
-    <link href="~/css/main.css" rel="stylesheet">
-    <link href="~/css/responsive.css" rel="stylesheet">
+    </environment>
+    <link rel="stylesheet" href="~/css/main.css">
+    
     <!--[if lt IE 9]>
     <script src="~/js/html5shiv.js"></script>
     <script src="~/js/respond.min.js"></script>
@@ -44,14 +38,20 @@
     </div>
 
     @await Html.PartialAsync("_Footer")
-
+    
+    
     <script src="~/lib/jquery/jquery.js"></script>
-    @*<script src="~/lib/jquery-validation/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>*@
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.scrollUp.min.js"></script>
-    <script src="~/js/price-range.js"></script>
-    <script src="~/js/jquery.prettyPhoto.js"></script>
-    <script src="~/js/main.js"></script>
+    <environment include="Development">
+        <script src="~/js/price-range.js"></script>
+        <script src="~/js/jquery.prettyPhoto.js"></script>
+        <script src="~/js/main.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js"></script>
+    </environment>
+    
+    
 </body>
 </html>
