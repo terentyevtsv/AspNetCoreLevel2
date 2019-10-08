@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrasructure.Helpers;
 using WebStore.Infrasructure.Interfaces;
@@ -10,6 +10,7 @@ namespace WebStore.Controllers
     /// Контроллер для работы со списком сотрудников
     /// </summary>
     [Route("users")]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -23,6 +24,7 @@ namespace WebStore.Controllers
         /// Действие выводит весь список сотрудников
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_employeeService.GetAll());
@@ -51,6 +53,7 @@ namespace WebStore.Controllers
         /// <param name="id">id сотрудника</param>
         /// <returns></returns>
         [Route("Edit/{id?}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             var employeeView = id.HasValue
@@ -70,6 +73,7 @@ namespace WebStore.Controllers
         /// <returns>Возвращает обновленный список сотрудников/returns>
         [HttpPost]
         [Route("Edit/{id?}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(EmployeeView employeeView)
         {
             const string ageOnHireDateError = "Возраст на дату найма не в пределах от 18 до 75 лет";
@@ -129,6 +133,7 @@ namespace WebStore.Controllers
         /// <param name="id">id сотрудника</param>
         /// <returns>Возвращет</returns>
         [Route("delete/{id}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int id)
         {
             var employeeView = _employeeService.GetById(id);

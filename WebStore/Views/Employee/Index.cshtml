@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<EmployeeView>
+
+@{
+    var isAdmin = User.IsInRole("Administrator");
+}
+
 <div class="container">
     <a class="btn btn-default" asp-action="Edit">Добавить</a>
     <table class="table table-bordered">
@@ -15,8 +20,12 @@
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
                 </td> @*Ссылка на карточку сотрудника*@
-                <td><a asp-action="Edit" asp-route-id="@employeeView.Id" title="Изменить"><i class="fa fa-edit"></i></a></td>
-                <td><a asp-action="Delete" asp-route-id="@employeeView.Id" title="Удалить"><i class="fa fa-cut"></i></a></td>
+                
+                @if (isAdmin)
+                {
+                    <td><a asp-action="Edit" asp-route-id="@employeeView.Id" title="Изменить"><i class="fa fa-edit"></i></a></td>
+                    <td><a asp-action="Delete" asp-route-id="@employeeView.Id" title="Удалить"><i class="fa fa-cut"></i></a></td>
+                }
             </tr>
         }
     </table>
