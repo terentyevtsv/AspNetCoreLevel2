@@ -36,7 +36,8 @@ namespace WebStore.Controllers
                         Order = p.Order,
                         Price = p.Price,
                         IsSale = p.IsSale,
-                        IsNew = p.IsNew
+                        IsNew = p.IsNew,
+                        BrandName = p.Brand?.Name ?? string.Empty
                     })
                     .OrderBy(p => p.Order)
                     .ToList()
@@ -45,9 +46,25 @@ namespace WebStore.Controllers
             return View(catalogViewModel);
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult ProductDetails(int id)
         {
-            return View();
+            var product = _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+
+            var productViewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                Order = product.Order,
+                IsNew = product.IsNew,
+                IsSale = product.IsSale,
+                Price = product.Price,
+                BrandName = product.Brand?.Name ?? string.Empty
+            };
+
+            return View(productViewModel);
         }
     }
 }

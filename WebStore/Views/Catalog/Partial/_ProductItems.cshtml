@@ -9,18 +9,20 @@
         <div class="product-image-wrapper">
             <div class="single-products">
                 <div class="productinfo text-center">
-                    <img src="~/images/shop/@productViewModel.ImageUrl" alt="" />
-                    <h2>@productViewModel.Price.ToString("C")</h2>
-                    <p>@productViewModel.Name</p>
+                    <a asp-action="ProductDetails" asp-route-id="@productViewModel.Id">
+                        <img src="~/images/shop/@productViewModel.ImageUrl" alt=""/>
+                        <h2>@productViewModel.Price.ToString("C")</h2>
+                        <p>@productViewModel.Name</p>
+                    </a>
                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                 </div>
-                <div class="product-overlay">
+                @*<div class="product-overlay">
                     <div class="overlay-content">
                         <h2>@productViewModel.Price.ToString("C")</h2>
                         <p>@productViewModel.Name</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                     </div>
-                </div>
+                </div>*@
                 @if (productViewModel.IsNew)
                 {
                     <img src="~/images/home/new.png" class="new" alt="Новинка" />

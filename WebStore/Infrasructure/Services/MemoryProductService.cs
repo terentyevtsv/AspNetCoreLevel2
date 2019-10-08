@@ -430,5 +430,12 @@ namespace WebStore.Infrasructure.Services
 
             return products;
         }
+
+        public Product GetProductById(int id)
+        {
+            var product = _products
+                .SingleOrDefault(p => p.Id == id);
+            return product;
+        }
     }
 }

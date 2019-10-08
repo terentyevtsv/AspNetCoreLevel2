@@ -15,5 +15,7 @@ namespace WebStore.ViewModels
         public bool IsNew { get; set; }
 
         public bool IsSale { get; set; }
+
+        public string BrandName { get; set; }
     }
 }
