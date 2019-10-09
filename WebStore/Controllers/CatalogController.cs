@@ -50,7 +50,7 @@ namespace WebStore.Controllers
         {
             var product = _productService.GetProductById(id);
             if (product == null)
-                return NotFound();
+                return RedirectToAction("NotFound", "Home");
 
             var productViewModel = new ProductViewModel
             {
