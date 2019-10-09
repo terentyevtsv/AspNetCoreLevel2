@@ -11,9 +11,9 @@ namespace WebStore.Infrasructure.Services
 {
     public class CookieCartService : ICartService
     {
-        private IProductService _productService;
-        private IHttpContextAccessor _httpContextAccessor;
-        private string _cartName;
+        private readonly IProductService _productService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string _cartName;
 
         private Cart Cart
         {
@@ -179,7 +179,7 @@ namespace WebStore.Infrasructure.Services
             {
                 Items = Cart.CartItems
                     .ToDictionary(c => products
-                            .First(p => p.Id == c.ProductId),
+                            .Single(p => p.Id == c.ProductId),
                         item => item.Quantity)
             };
 

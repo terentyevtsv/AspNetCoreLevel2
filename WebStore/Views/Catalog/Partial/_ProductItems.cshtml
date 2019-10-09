@@ -14,7 +14,10 @@
                         <h2>@productViewModel.Price.ToString("C")</h2>
                         <p>@productViewModel.Name</p>
                     </a>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                    <a class="btn btn-default add-to-cart" asp-controller="Cart" asp-action="AddToCart"
+                       asp-route-id="@productViewModel.Id" asp-route-returnUrl="@Context.Request.Path">
+                        <i class="fa fa-shopping-cart"></i>Add to cart
+                    </a>
                 </div>
                 @*<div class="product-overlay">
                     <div class="overlay-content">
