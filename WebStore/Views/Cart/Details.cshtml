@@ -1,4 +1,4 @@
-﻿@model CartViewModel
+﻿@model OrderDetailsViewModel
 @{
     ViewBag.Title = "Cart";
 }
@@ -15,7 +15,7 @@
             <table class="table table-condensed">
                 @await Html.PartialAsync("Partial/_CartMenu")
                 <tbody>
-                    @await Html.PartialAsync("Partial/_ReviewAndPayment", Model)
+                    @await Html.PartialAsync("Partial/_ReviewAndPayment", Model.CartViewModel)
                 </tbody>
             </table>
         </div>
@@ -35,10 +35,10 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Cart Sub Total <span>@Model.Price.ToString("C")</span></li>
-                        <li>Eco Tax <span>@Model.Tax.ToString("C")</span></li>
+                        <li>Cart Sub Total <span>@Model.CartViewModel.Price.ToString("C")</span></li>
+                        <li>Eco Tax <span>@Model.CartViewModel.Tax.ToString("C")</span></li>
                         <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>@Model.TotalPrice.ToString("C")</span></li>
+                        <li>Total <span>@Model.CartViewModel.TotalPrice.ToString("C")</span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Update</a>
                     <a class="btn btn-default check_out" href="">Check Out</a>

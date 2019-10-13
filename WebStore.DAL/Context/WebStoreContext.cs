@@ -16,5 +16,9 @@ namespace WebStore.DAL.Context
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Brand> Brands { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }
