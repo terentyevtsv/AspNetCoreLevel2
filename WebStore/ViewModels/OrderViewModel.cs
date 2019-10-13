@@ -7,7 +7,7 @@ namespace WebStore.ViewModels
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        [Required, DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
         [Required]
