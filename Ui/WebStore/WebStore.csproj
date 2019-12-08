@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebStore.DAL\WebStore.DAL.csproj" />
-    <ProjectReference Include="..\WebStore.DomainNew\WebStore.DomainNew.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
@@ -35,6 +30,11 @@
     <None Include="wwwroot\admin\assets\js\bootstrap.min.js" />
     <None Include="wwwroot\admin\assets\js\custom.js" />
     <None Include="wwwroot\admin\assets\js\jquery-1.10.2.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\WebStore.DomainNew\WebStore.DomainNew.csproj" />
+    <ProjectReference Include="..\..\Services\WebStore.DAL\WebStore.DAL.csproj" />
   </ItemGroup>
 
 </Project>
