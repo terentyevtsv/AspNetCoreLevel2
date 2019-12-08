@@ -4,10 +4,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using WebStore.DomainNew.Filters;
-using WebStore.Infrasructure.Interfaces;
-using WebStore.ViewModels;
+using WebStore.DomainNew.ViewModels;
+using WebStore.Interfaces;
 
-namespace WebStore.Infrasructure.Services
+namespace WebStore.Services
 {
     public class CookieCartService : ICartService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WebStore.ViewModels;
+using WebStore.DomainNew.ViewModels;
 
-namespace WebStore.Infrasructure.Interfaces
+namespace WebStore.Interfaces
 {
     /// <summary>
     /// Интерфейс для работы с сотрудниками

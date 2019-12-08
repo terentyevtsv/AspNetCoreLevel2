@@ -2,7 +2,7 @@
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
 
-namespace WebStore.Infrasructure.Interfaces
+namespace WebStore.Interfaces
 {
     public interface IProductService
     {

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebStore.DomainNew.Entities;
 
-namespace WebStore.ViewModels
+namespace WebStore.DomainNew.ViewModels
 {
     public class LoginViewModel
     {

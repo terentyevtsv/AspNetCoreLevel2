@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebStore.Infrasructure.Interfaces;
-using WebStore.ViewModels;
+using WebStore.DomainNew.ViewModels;
+using WebStore.Interfaces;
 
-namespace WebStore.Infrasructure.Services
+namespace WebStore.Services.Memory
 {
     /// <summary>
     /// Класс реализующий интерфейс сотрудника в памяти приложения

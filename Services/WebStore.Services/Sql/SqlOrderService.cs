@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
-using WebStore.Infrasructure.Interfaces;
-using WebStore.ViewModels;
+using WebStore.DomainNew.ViewModels;
+using WebStore.Interfaces;
 
-namespace WebStore.Infrasructure.Services
+namespace WebStore.Services.Sql
 {
     public class SqlOrderService : IOrderService
     {

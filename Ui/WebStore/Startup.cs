@@ -8,8 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
-using WebStore.Infrasructure.Interfaces;
-using WebStore.Infrasructure.Services;
+using WebStore.Interfaces;
+using WebStore.Services;
+using WebStore.Services.Memory;
+using WebStore.Services.Sql;
 
 namespace WebStore
 {
@@ -30,7 +32,7 @@ namespace WebStore
 
             // Добавляем разрешение зависимости
             services.AddSingleton<IEmployeeService, MemoryEmployeeService>();
-            services.AddScoped<IProductService, DbProductService>();
+            services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddDbContext<WebStoreContext>(options =>

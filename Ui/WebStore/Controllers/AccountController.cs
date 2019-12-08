@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.DomainNew.Entities;
-using WebStore.ViewModels;
+using WebStore.DomainNew.ViewModels;
 
 namespace WebStore.Controllers
 {

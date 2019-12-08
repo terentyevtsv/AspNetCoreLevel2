@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebStore.DomainNew.Entities.Base.Interfaces;
 
-namespace WebStore.ViewModels
+namespace WebStore.DomainNew.ViewModels
 {
     public class CategoryViewModel : INamedEntity, IOrderedEntity
     {

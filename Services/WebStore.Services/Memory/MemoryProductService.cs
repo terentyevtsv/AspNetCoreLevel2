@@ -2,9 +2,9 @@
 using System.Linq;
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
-using WebStore.Infrasructure.Interfaces;
+using WebStore.Interfaces;
 
-namespace WebStore.Infrasructure.Services
+namespace WebStore.Services.Memory
 {
     public class MemoryProductService : IProductService
     {

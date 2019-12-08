@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
-using WebStore.Infrasructure.Interfaces;
+using WebStore.Interfaces;
 
-namespace WebStore.Infrasructure.Services
+namespace WebStore.Services.Sql
 {
-    public class DbProductService : IProductService
+    public class SqlProductService : IProductService
     {
         private readonly WebStoreContext _webStoreContext;
 
-        public DbProductService(
+        public SqlProductService(
             WebStoreContext webStoreContext)
         {
             _webStoreContext = webStoreContext;
