@@ -24,4 +24,17 @@
     <ProjectReference Include="..\WebStore.DomainNew\WebStore.DomainNew.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\admin\assets\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\admin\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\admin\assets\js\custom.js" />
+    <None Include="wwwroot\admin\assets\js\jquery-1.10.2.js" />
+  </ItemGroup>
+
 </Project>

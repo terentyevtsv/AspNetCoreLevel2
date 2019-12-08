@@ -31,6 +31,7 @@ namespace WebStore
             // Добавляем разрешение зависимости
             services.AddSingleton<IEmployeeService, MemoryEmployeeService>();
             services.AddScoped<IProductService, DbProductService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddDbContext<WebStoreContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString(
@@ -76,7 +77,15 @@ namespace WebStore
 
             app.UseAuthentication();
 
-            app.UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"));
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    "default", "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.Run(async (context) =>
             {
