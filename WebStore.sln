@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Services", "Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.ServicesHosting", "Services\WebStore.ServicesHosting\WebStore.ServicesHosting.csproj", "{1F70F40E-2D50-4F6D-977E-3991E84101B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +67,8 @@ Global
 		{7EBD27B6-D2A8-4CC2-B405-54703BC54DB8} = {0985310C-E0FB-46C5-AEC4-B0300CB3CE2F}
 		{235D4760-B2D6-43F1-B5B6-585A20AAAF1E} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
 		{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
+		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
+		{1F70F40E-2D50-4F6D-977E-3991E84101B5} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DABD886B-2B4A-419E-A808-AC7A41F56068}
