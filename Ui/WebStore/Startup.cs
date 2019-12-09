@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.Clients.Services;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Interfaces;
@@ -32,6 +33,7 @@ namespace WebStore
 
             // Добавляем разрешение зависимости
             services.AddSingleton<IEmployeeService, MemoryEmployeeService>();
+            services.AddTransient<IValueService, ValuesClient>();
             services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IOrderService, SqlOrderService>();
 
