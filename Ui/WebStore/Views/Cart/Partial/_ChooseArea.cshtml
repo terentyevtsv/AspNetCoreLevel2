@@ -1,0 +1,12 @@
+﻿@model WebStore.DomainNew.ViewModels.OrderViewModel
+
+<div>
+    <input asp-for="Name" placeholder="@nameof(Model.Name)" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+
+    <input asp-for="Phone" placeholder="@nameof(Model.Phone)" />
+    <span asp-validation-for="Phone" class="text-danger"></span>
+
+    <input asp-for="Address" placeholder="@nameof(Model.Address)" />
+    <span asp-validation-for="Address" class="text-danger"></span>
+</div>

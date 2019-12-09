@@ -1,0 +1,53 @@
+﻿@model WebStore.DomainNew.ViewModels.OrderDetailsViewModel
+@{
+    ViewBag.Title = "Cart";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                @await Html.PartialAsync("Partial/_CartMenu")
+                <tbody>
+                    @await Html.PartialAsync("Partial/_ReviewAndPayment", Model.CartViewModel)
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>Оформите заказ</h3>
+        </div>
+        <div class="row login-form" >
+            <form method="post" asp-antiforgery="true" asp-action="CheckOut">
+                <div class="col-sm-6">
+                    @await Html.PartialAsync("Partial/_ChooseArea", Model.OrderViewModel)
+                </div>
+                <div class="col-sm-6">
+                    <div class="total_area">
+                        @if (Model.CartViewModel.TotalPrice > 0)
+                        {
+                            <ul>
+                                <li>Cart Sub Total <span>@Model.CartViewModel.Price.ToString("C")</span></li>
+                                <li>Eco Tax <span>@Model.CartViewModel.Tax.ToString("C")</span></li>
+                                <li>Shipping Cost <span>Free</span></li>
+                                <li>Total <span>@Model.CartViewModel.TotalPrice.ToString("C")</span></li>
+                            </ul>
+                            <input type="submit" value="Оформить заказ" class="btn btn-default check_out" />
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section><!--/#do_action-->
+

@@ -1,0 +1,42 @@
+﻿@model WebStore.DomainNew.ViewModels.EmployeeView
+<div class="container">
+    @*Информация по выбранному сотруднику с дополнительными свойствами*@
+    <div class="col-md-4">
+        <table class="table table-bordered">
+            <tr>
+                <td>Id</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td>@Model.SurName</td>
+            </tr>
+            <tr>
+                <td>Имя</td>
+                <td>@Model.FirstName</td>
+            </tr>
+            <tr>
+                <td>Отчество</td>
+                <td>@Model.Patronymic</td>
+            </tr>
+            <tr>
+                <td>Возраст</td>
+                <td>@Model.Age</td>
+            </tr>
+            <tr>
+                <td>Дата рождения</td>
+                <td>@Model.BirthDate.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td>Дата приема на работу</td>
+                <td>@Model.HireDate.ToShortDateString()</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@*Ссылка назад к списку сотрудников (действие Index)*@
+<a asp-controller="Employee" asp-action="Index">Назад</a>
+    
+
+
