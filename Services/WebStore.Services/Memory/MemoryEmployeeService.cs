@@ -52,6 +52,26 @@ namespace WebStore.Services.Memory
             return employeeView;
         }
 
+        public EmployeeView UpdateEmployee(int id, EmployeeView entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var employee = _employees.SingleOrDefault(e => e.Id.Equals(id));
+            if (employee == null)
+                throw new InvalidOperationException("Employee not exists");
+
+            employee.Age = entity.Age;
+            employee.BirthDate = entity.BirthDate;
+            employee.FirstName = entity.FirstName;
+            employee.Patronymic = entity.Patronymic;
+            employee.SurName = entity.SurName;
+            employee.Position = entity.Position;
+            employee.HireDate = entity.HireDate;
+
+            return employee;
+        }
+
         public void Commit()
         {
             
@@ -59,6 +79,9 @@ namespace WebStore.Services.Memory
 
         public void AddNew(EmployeeView model)
         {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
             var id = _employees.Any()
                 ? _employees.Max(emp => emp.Id) + 1
                 : 1;

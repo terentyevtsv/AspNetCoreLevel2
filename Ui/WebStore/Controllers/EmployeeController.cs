@@ -115,14 +115,7 @@ namespace WebStore.Controllers
             if (ReferenceEquals(tmpEmployeeView, null))
                 return NotFound();
 
-            tmpEmployeeView.Age = employeeView.Age;
-            tmpEmployeeView.BirthDate = employeeView.BirthDate;
-            tmpEmployeeView.FirstName = employeeView.FirstName;
-            tmpEmployeeView.HireDate = employeeView.HireDate;
-            tmpEmployeeView.Patronymic = employeeView.Patronymic;
-            tmpEmployeeView.SurName = employeeView.SurName;
-
-            _employeeService.Commit();
+            _employeeService.UpdateEmployee(employeeView.Id, employeeView);
 
             return RedirectToAction("Index");
         }
