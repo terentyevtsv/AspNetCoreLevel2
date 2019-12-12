@@ -33,7 +33,7 @@ namespace WebStore
             // Добавляем разрешение зависимости
             services.AddSingleton<IEmployeeService, EmployeesClient>();
             services.AddTransient<IValueService, ValuesClient>();
-            services.AddScoped<IProductService, SqlProductService>();
+            services.AddScoped<IProductService, ProductsClient>();
             services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddDbContext<WebStoreContext>(options =>
