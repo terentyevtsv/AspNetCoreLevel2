@@ -1,4 +1,5 @@
-﻿using WebStore.DomainNew.Dto;
+﻿using System.Linq;
+using WebStore.DomainNew.Dto;
 using WebStore.DomainNew.Entities;
 
 namespace WebStore.DomainNew.Helpers
@@ -16,6 +17,7 @@ namespace WebStore.DomainNew.Helpers
                 Price = product.Price,
                 IsNew = product.IsNew,
                 IsSale = product.IsSale,
+                // Непонятно почему здесь
                 Brand = product.BrandId.HasValue
                     ? new BrandDto
                     {
@@ -27,6 +29,39 @@ namespace WebStore.DomainNew.Helpers
             };
 
             return productDto;
+        }
+
+        public static OrderDto ToDto(this Order order)
+        {
+            var orderDto = new OrderDto
+            {
+                Id = order.Id,
+                Name = order.Name,
+                Phone = order.Phone,
+                Address = order.Address,
+                Date = order.Date,
+                // и здесь инициализируем поля связанных таблиц Entity
+                OrderItems = order.OrderItems
+                    .Select(o => o.ToDto())
+                    .ToList()
+            };
+
+            return orderDto;
+        }
+
+        // а здесь инициализируются только значимые поля, хотя OrderItem содержит еще
+        // свойства Order и Product. 
+
+        public static OrderItemDto ToDto(this OrderItem orderItem)
+        {
+            var orderItemDto = new OrderItemDto
+            {
+                Id = orderItem.Id,
+                Price = orderItem.Price,
+                Quantity = orderItem.Quantity
+            };
+
+            return orderItemDto;
         }
     }
 }

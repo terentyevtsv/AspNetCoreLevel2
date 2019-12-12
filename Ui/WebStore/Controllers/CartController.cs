@@ -31,8 +31,14 @@ namespace WebStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var orderResult = _orderService.CreateOrder(orderViewModel, 
-                    _cartService.TransformCart(), User.Identity.Name);
+                var createOrderViewModel = new CreateOrderViewModel
+                {
+                    OrderViewModel = orderViewModel,
+                    CartViewModel = _cartService.TransformCart()
+                };
+
+                var orderResult = _orderService.CreateOrder(
+                    createOrderViewModel, User.Identity.Name);
                 _cartService.RemoveAll();
 
                 return RedirectToAction("OrderConfirmed", 

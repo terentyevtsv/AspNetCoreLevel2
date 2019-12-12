@@ -4,7 +4,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.DomainNew.Dto;
 using WebStore.DomainNew.Entities;
+using WebStore.DomainNew.Helpers;
 using WebStore.DomainNew.ViewModels;
 using WebStore.Interfaces;
 
@@ -22,30 +24,36 @@ namespace WebStore.Services.Sql
             _userManager = userManager;
         }
 
-        public IEnumerable<Order> GetUserOrders(string userName)
+        public IEnumerable<OrderDto> GetUserOrders(string userName)
         {
             return _webStoreContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                 .Where(o => o.User.UserName == userName)
+                .Select(o => o.ToDto())
                 .ToList();
         }
 
-        public Order GetOrderById(int id)
+        public OrderDto GetOrderById(int id)
         {
-            return _webStoreContext.Orders
+            var order = _webStoreContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                 .SingleOrDefault(o => o.Id == id);
+
+            return order?.ToDto();
         }
 
-        public Order CreateOrder(OrderViewModel orderViewModel, 
-            CartViewModel cartViewModel, string userName)
+        public OrderDto CreateOrder(CreateOrderViewModel createOrderViewModel, 
+            string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
             using (var transaction = _webStoreContext.Database.BeginTransaction())
             {
+                var orderViewModel = createOrderViewModel.OrderViewModel;
+                var cartViewModel = createOrderViewModel.CartViewModel;
+
                 var order = new Order
                 {
                     Address = orderViewModel.Address,
@@ -85,7 +93,7 @@ namespace WebStore.Services.Sql
                 _webStoreContext.SaveChanges();
                 transaction.Commit();
 
-                return order;
+                return order.ToDto();
             }
         }
     }

@@ -34,7 +34,7 @@ namespace WebStore
             services.AddSingleton<IEmployeeService, EmployeesClient>();
             services.AddTransient<IValueService, ValuesClient>();
             services.AddScoped<IProductService, ProductsClient>();
-            services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddDbContext<WebStoreContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString(
