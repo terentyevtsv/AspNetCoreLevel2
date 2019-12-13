@@ -52,5 +52,7 @@ namespace WebStore.DomainNew.ViewModels
         [Display(Name = "Дата найма")]
         [DataType(DataType.Date)]
         public DateTime HireDate { get; set; }
+
+        public string Position { get; set; }
     }
 }

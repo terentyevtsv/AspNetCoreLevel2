@@ -4,7 +4,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.DomainNew.Dto;
 using WebStore.DomainNew.Entities;
+using WebStore.DomainNew.Helpers;
 using WebStore.DomainNew.ViewModels;
 using WebStore.Interfaces;
 
@@ -22,30 +24,35 @@ namespace WebStore.Services.Sql
             _userManager = userManager;
         }
 
-        public IEnumerable<Order> GetUserOrders(string userName)
+        public IEnumerable<OrderDto> GetUserOrders(string userName)
         {
             return _webStoreContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                 .Where(o => o.User.UserName == userName)
+                .Select(o => o.ToDto())
                 .ToList();
         }
 
-        public Order GetOrderById(int id)
+        public OrderDto GetOrderById(int id)
         {
-            return _webStoreContext.Orders
+            var order = _webStoreContext.Orders
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                 .SingleOrDefault(o => o.Id == id);
+
+            return order?.ToDto();
         }
 
-        public Order CreateOrder(OrderViewModel orderViewModel, 
-            CartViewModel cartViewModel, string userName)
+        public OrderDto CreateOrder(CreateOrderDto createOrderDto, 
+            string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
             using (var transaction = _webStoreContext.Database.BeginTransaction())
             {
+                var orderViewModel = createOrderDto.OrderViewModel;
+                
                 var order = new Order
                 {
                     Address = orderViewModel.Address,
@@ -57,12 +64,10 @@ namespace WebStore.Services.Sql
 
                 _webStoreContext.Orders.Add(order);
 
-                foreach (var item in cartViewModel.Items)
+                foreach (var item in createOrderDto.OrderItems)
                 {
-                    var productViewModel = item.Key;
-
                     var product = _webStoreContext.Products
-                        .SingleOrDefault(p => p.Id == productViewModel.Id);
+                        .SingleOrDefault(p => p.Id == item.Id);
 
                     if (product == null)
                     {
@@ -73,7 +78,7 @@ namespace WebStore.Services.Sql
                     var orderItem = new OrderItem
                     {
                         Price = product.Price,
-                        Quantity = item.Value,
+                        Quantity = item.Quantity,
                         
                         Order = order,
                         Product = product
@@ -85,7 +90,7 @@ namespace WebStore.Services.Sql
                 _webStoreContext.SaveChanges();
                 transaction.Commit();
 
-                return order;
+                return GetOrderById(order.Id);
             }
         }
     }

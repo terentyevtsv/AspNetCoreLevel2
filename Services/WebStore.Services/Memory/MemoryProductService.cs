@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WebStore.DomainNew.Dto;
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
+using WebStore.DomainNew.Helpers;
 using WebStore.Interfaces;
 
 namespace WebStore.Services.Memory
@@ -410,7 +412,7 @@ namespace WebStore.Services.Memory
             return _brands;
         }
 
-        public IEnumerable<Product> GetProducts(ProductsFilter filter)
+        public IEnumerable<ProductDto> GetProducts(ProductsFilter filter)
         {
             var products = _products;
 
@@ -428,14 +430,17 @@ namespace WebStore.Services.Memory
                     .ToList();
             }
 
-            return products;
+            return products.Select(p => p.ToDto());
         }
 
-        public Product GetProductById(int id)
+        public ProductDto GetProductById(int id)
         {
             var product = _products
                 .SingleOrDefault(p => p.Id == id);
-            return product;
+            if (product != null)
+                return product.ToDto();
+
+            return null;
         }
     }
 }

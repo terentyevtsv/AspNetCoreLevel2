@@ -11,7 +11,6 @@ using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Interfaces;
 using WebStore.Services;
-using WebStore.Services.Memory;
 using WebStore.Services.Sql;
 
 namespace WebStore
@@ -32,10 +31,10 @@ namespace WebStore
             services.AddMvc();
 
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEmployeeService, MemoryEmployeeService>();
+            services.AddSingleton<IEmployeeService, EmployeesClient>();
             services.AddTransient<IValueService, ValuesClient>();
-            services.AddScoped<IProductService, SqlProductService>();
-            services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddScoped<IProductService, ProductsClient>();
+            services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddDbContext<WebStoreContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString(

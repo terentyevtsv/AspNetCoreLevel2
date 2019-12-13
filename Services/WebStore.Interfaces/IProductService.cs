@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebStore.DomainNew.Dto;
 using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
 
@@ -22,13 +23,13 @@ namespace WebStore.Interfaces
         /// Товары
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Product> GetProducts(ProductsFilter filter);
+        IEnumerable<ProductDto> GetProducts(ProductsFilter filter);
 
         /// <summary>
         /// Получить товар по id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Product GetProductById(int id);
+        ProductDto GetProductById(int id);
     }
 }

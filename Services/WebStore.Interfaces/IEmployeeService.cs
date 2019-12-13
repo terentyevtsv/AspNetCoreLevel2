@@ -22,9 +22,12 @@ namespace WebStore.Interfaces
         EmployeeView GetById(int id);
 
         /// <summary>
-        /// Сохранить изменения
+        /// Обновление сотрудника
         /// </summary>
-        void Commit();
+        /// <param name="id"></param>
+        /// <param name="entity">Сотрудник для обновления</param>
+        /// <returns></returns>
+        EmployeeView UpdateEmployee(int id, EmployeeView entity);
 
         /// <summary>
         /// Добавить нового сотрудника
@@ -37,5 +40,10 @@ namespace WebStore.Interfaces
         /// </summary>
         /// <param name="id">id</param>
         void Delete(int id);
+
+        /// <summary>
+        /// Сохранить изменения
+        /// </summary>
+        void Commit();
     }
 }
