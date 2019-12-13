@@ -33,11 +33,11 @@ namespace WebStore.ServicesHosting.Controllers
         }
 
         [HttpPost("{userName?}")]
-        public OrderDto CreateOrder([FromBody] CreateOrderViewModel createOrderViewModel, 
+        public OrderDto CreateOrder([FromBody] CreateOrderDto createOrderDto, 
             string userName)
         {
             var order = _orderService.CreateOrder(
-                createOrderViewModel, userName);
+                createOrderDto, userName);
             return order;
         }
     }

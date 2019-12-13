@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using WebStore.DomainNew.Dto;
-using WebStore.DomainNew.ViewModels;
 
 namespace WebStore.Interfaces
 {
@@ -10,7 +9,7 @@ namespace WebStore.Interfaces
 
         OrderDto GetOrderById(int id);
 
-        OrderDto CreateOrder(CreateOrderViewModel createOrderViewModel, 
+        OrderDto CreateOrder(CreateOrderDto createOrderDto, 
             string userName);
     }
 }

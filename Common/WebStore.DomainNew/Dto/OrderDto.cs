@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Entities.Base;
 
 namespace WebStore.DomainNew.Dto
@@ -13,6 +12,6 @@ namespace WebStore.DomainNew.Dto
 
         public DateTime Date { get; set; }
 
-        public virtual ICollection<OrderItemDto> OrderItems { get; set; }
+        public IEnumerable<OrderItemDto> OrderItems { get; set; }
     }
 }

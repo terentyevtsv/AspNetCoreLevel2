@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.DomainNew.Dto;
+using WebStore.DomainNew.Entities;
+using WebStore.DomainNew.Helpers;
 using WebStore.DomainNew.ViewModels;
 using WebStore.Interfaces;
 
@@ -31,10 +36,17 @@ namespace WebStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createOrderViewModel = new CreateOrderViewModel
+                var createOrderViewModel = new CreateOrderDto
                 {
                     OrderViewModel = orderViewModel,
-                    CartViewModel = _cartService.TransformCart()
+                    OrderItems = _cartService.TransformCart().Items
+                        .Select(o => new OrderItem
+                        {
+                            Id = o.Key.Id,
+                            Price = o.Key.Price,
+                            Quantity = o.Value
+                        })
+                        .Select(o => o.ToDto()).ToList()
                 };
 
                 var orderResult = _orderService.CreateOrder(

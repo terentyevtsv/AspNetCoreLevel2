@@ -44,16 +44,15 @@ namespace WebStore.Services.Sql
             return order?.ToDto();
         }
 
-        public OrderDto CreateOrder(CreateOrderViewModel createOrderViewModel, 
+        public OrderDto CreateOrder(CreateOrderDto createOrderDto, 
             string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
             using (var transaction = _webStoreContext.Database.BeginTransaction())
             {
-                var orderViewModel = createOrderViewModel.OrderViewModel;
-                var cartViewModel = createOrderViewModel.CartViewModel;
-
+                var orderViewModel = createOrderDto.OrderViewModel;
+                
                 var order = new Order
                 {
                     Address = orderViewModel.Address,
@@ -65,12 +64,10 @@ namespace WebStore.Services.Sql
 
                 _webStoreContext.Orders.Add(order);
 
-                foreach (var item in cartViewModel.Items)
+                foreach (var item in createOrderDto.OrderItems)
                 {
-                    var productViewModel = item.Key;
-
                     var product = _webStoreContext.Products
-                        .SingleOrDefault(p => p.Id == productViewModel.Id);
+                        .SingleOrDefault(p => p.Id == item.Id);
 
                     if (product == null)
                     {
@@ -81,7 +78,7 @@ namespace WebStore.Services.Sql
                     var orderItem = new OrderItem
                     {
                         Price = product.Price,
-                        Quantity = item.Value,
+                        Quantity = item.Quantity,
                         
                         Order = order,
                         Product = product
@@ -93,7 +90,7 @@ namespace WebStore.Services.Sql
                 _webStoreContext.SaveChanges();
                 transaction.Commit();
 
-                return order.ToDto();
+                return GetOrderById(order.Id);
             }
         }
     }

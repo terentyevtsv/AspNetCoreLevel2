@@ -26,10 +26,10 @@ namespace WebStore.Clients.Services
             return order;
         }
 
-        public OrderDto CreateOrder(CreateOrderViewModel createOrderViewModel, 
+        public OrderDto CreateOrder(CreateOrderDto createOrderDto, 
             string userName)
         {
-            var response = Post($"{ServiceAddress}/{userName}", createOrderViewModel);
+            var response = Post($"{ServiceAddress}/{userName}", createOrderDto);
 
             return response.Content.ReadAsAsync<OrderDto>().Result;
         }

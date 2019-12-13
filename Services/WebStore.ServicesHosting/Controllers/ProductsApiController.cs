@@ -42,7 +42,7 @@ namespace WebStore.ServicesHosting.Controllers
             return products;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), ActionName("Get")]
         public ProductDto GetProductById(int id)
         {
             var product = _productService.GetProductById(id);
