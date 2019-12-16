@@ -11,7 +11,6 @@ using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Interfaces;
 using WebStore.Services;
-using WebStore.Services.Sql;
 
 namespace WebStore
 {
@@ -35,14 +34,21 @@ namespace WebStore
             services.AddTransient<IValueService, ValuesClient>();
             services.AddScoped<IProductService, ProductsClient>();
             services.AddScoped<IOrderService, OrdersClient>();
-
-            services.AddDbContext<WebStoreContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString(
-                    "DefaultConnection")));
+            services.AddTransient<IUsersClient, UsersClient>();
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IUserStore<User>, CustomUserStore>();
+            services.AddTransient<IUserRoleStore<User>, CustomUserStore>();
+            services.AddTransient<IUserClaimStore<User>, CustomUserStore>();
+            services.AddTransient<IUserPasswordStore<User>, CustomUserStore>();
+            services.AddTransient<IUserTwoFactorStore<User>, CustomUserStore>();
+            services.AddTransient<IUserEmailStore<User>, CustomUserStore>();
+            services.AddTransient<IUserPhoneNumberStore<User>, CustomUserStore>();
+            services.AddTransient<IUserLoginStore<User>, CustomUserStore>();
+            services.AddTransient<IUserLockoutStore<User>, CustomUserStore>();
+            services.AddTransient<IRoleStore<IdentityRole>, RolesClient>();
 
             services.Configure<IdentityOptions>(options =>
             {
