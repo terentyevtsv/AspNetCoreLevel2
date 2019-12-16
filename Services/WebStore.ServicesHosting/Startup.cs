@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Interfaces;
@@ -27,6 +28,15 @@ namespace WebStore.ServicesHosting
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "My WebStore API",
+                    Version = "v1"
+                });
+            });
 
             services.AddDbContext<WebStoreContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(
@@ -51,6 +61,9 @@ namespace WebStore.ServicesHosting
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(options => options.SwaggerEndpoint(
+                    "/swagger/v1/swagger.json", "My WebStore API V1"));
                 app.UseDeveloperExceptionPage();
             }
             

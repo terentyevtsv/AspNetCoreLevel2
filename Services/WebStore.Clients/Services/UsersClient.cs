@@ -27,7 +27,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/userId";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var res = await result.Content.ReadAsAsync<string>(cancel);
+            return res;
         }
 
         public async Task<string> GetUserNameAsync(
@@ -56,7 +57,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/normalUserName";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var tmpStr = await result.Content.ReadAsAsync<string>(cancel);
+            return tmpStr;
         }
 
         public Task SetNormalizedUserNameAsync(
@@ -105,7 +107,8 @@ namespace WebStore.Clients.Services
             CancellationToken cancel)
         {
             var url = $"{ServiceAddress}/user/find/{userId}";
-            return GetAsync<User>(url);
+            var user = GetAsync<User>(url);
+            return user;
         }
 
         public async Task<User> FindByNameAsync(
@@ -144,7 +147,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/roles";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<IList<string>>(cancel);
+            var list = await result.Content.ReadAsAsync<IList<string>>(cancel);
+            return list;
         }
 
         public async Task<bool> IsInRoleAsync(
@@ -154,7 +158,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/inrole/{roleName}";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var isInRole = await result.Content.ReadAsAsync<bool>(cancel);
+            return isInRole;
         }
 
         public async Task<IList<User>> GetUsersInRoleAsync(
@@ -162,7 +167,8 @@ namespace WebStore.Clients.Services
             CancellationToken cancel)
         {
             var url = $"{ServiceAddress}/usersInRole/{roleName}";
-            return await GetAsync<List<User>>(url);
+            var users = await GetAsync<List<User>>(url);
+            return users;
         }
 
         #endregion
@@ -190,7 +196,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getPasswordHash";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var passHash = await result.Content.ReadAsAsync<string>(cancel);
+            return passHash;
         }
 
         public async Task<bool> HasPasswordAsync(
@@ -199,7 +206,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/hasPassword";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var hasPassword = await result.Content.ReadAsAsync<bool>(cancel);
+            return hasPassword;
         }
 
         #endregion
@@ -211,7 +219,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getClaims";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<List<Claim>>(cancel);
+            var claims = await result.Content.ReadAsAsync<List<Claim>>(cancel);
+            return claims;
         }
 
         public Task AddClaimsAsync(
@@ -267,7 +276,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getUsersForClaim";
             var result = await PostAsync(url, claim);
-            return await result.Content.ReadAsAsync<List<User>>(cancel);
+            var users = await result.Content.ReadAsAsync<List<User>>(cancel);
+            return users;
         }
 
         #endregion
@@ -289,7 +299,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getTwoFactorEnabled";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var isTwoFactorEnables = await result.Content.ReadAsAsync<bool>(cancel);
+            return isTwoFactorEnables;
         }
 
         #endregion
@@ -312,7 +323,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getEmail";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var email = await result.Content.ReadAsAsync<string>(cancel);
+            return email;
         }
 
         public async Task<bool> GetEmailConfirmedAsync(
@@ -321,7 +333,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getEmailConfirmed";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var emailConfirmed = await result.Content.ReadAsAsync<bool>(cancel);
+            return emailConfirmed;
         }
 
         public Task SetEmailConfirmedAsync(
@@ -338,7 +351,8 @@ namespace WebStore.Clients.Services
             CancellationToken cancel)
         {
             var url = $"{ServiceAddress}/user/findByEmail/{normalizedEmail}";
-            return GetAsync<User>(url);
+            var user = GetAsync<User>(url);
+            return user;
         }
 
         public async Task<string> GetNormalizedEmailAsync(
@@ -347,7 +361,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getNormalizedEmail";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var normalizedEmail = await result.Content.ReadAsAsync<string>(cancel);
+            return normalizedEmail;
         }
 
         public Task SetNormalizedEmailAsync(
@@ -380,7 +395,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getPhoneNumber";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<string>(cancel);
+            var phoneNumber = await result.Content.ReadAsAsync<string>(cancel);
+            return phoneNumber;
         }
 
         public async Task<bool> GetPhoneNumberConfirmedAsync(
@@ -389,7 +405,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getPhoneNumberConfirmed";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var phoneNumberConfirmed = await result.Content.ReadAsAsync<bool>(cancel);
+            return phoneNumberConfirmed;
         }
 
         public Task SetPhoneNumberConfirmedAsync(
@@ -438,8 +455,9 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getLogins";
             var result = await PostAsync(url, user);
-            return await result.Content
+            var userLoginInfos = await result.Content
                 .ReadAsAsync<List<UserLoginInfo>>(cancel);
+            return userLoginInfos;
         }
 
         public Task<User> FindByLoginAsync(
@@ -448,7 +466,8 @@ namespace WebStore.Clients.Services
             CancellationToken cancel)
         {
             var url = $"{ServiceAddress}/user/findbylogin/{Provider}/{Key}";
-            return GetAsync<User>(url);
+            var user = GetAsync<User>(url);
+            return user;
         }
 
         #endregion
@@ -461,7 +480,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/getLockoutEndDate";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<DateTimeOffset?>(cancel);
+            var offset = await result.Content.ReadAsAsync<DateTimeOffset?>(cancel);
+            return offset;
         }
 
         public Task SetLockoutEndDateAsync(
@@ -486,7 +506,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/IncrementAccessFailedCount";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<int>(cancel);
+            var incCount = await result.Content.ReadAsAsync<int>(cancel);
+            return incCount;
         }
 
         public Task ResetAccessFailedCountAsync(
@@ -503,7 +524,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/GetAccessFailedCount";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<int>(cancel);
+            var count = await result.Content.ReadAsAsync<int>(cancel);
+            return count;
         }
 
         public async Task<bool> GetLockoutEnabledAsync(
@@ -512,7 +534,8 @@ namespace WebStore.Clients.Services
         {
             var url = $"{ServiceAddress}/GetLockoutEnabled";
             var result = await PostAsync(url, user);
-            return await result.Content.ReadAsAsync<bool>(cancel);
+            var isEnabled = await result.Content.ReadAsAsync<bool>(cancel);
+            return isEnabled;
         }
 
         public async Task SetLockoutEnabledAsync(
