@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 
-namespace WebStore.Data
+namespace WebStore.DAL
 {
     public static class DbInitializer
     {
