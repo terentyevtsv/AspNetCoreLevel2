@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29324.140
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5E65E749-3A05-4E39-B7BF-1A6F00CED9E3}"
 EndProject
@@ -15,13 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.DAL", "Services\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "Ui\WebStore\WebStore.csproj", "{7EBD27B6-D2A8-4CC2-B405-54703BC54DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Services", "Services\WebStore.Services\WebStore.Services.csproj", "{235D4760-B2D6-43F1-B5B6-585A20AAAF1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Services", "Services\WebStore.Services\WebStore.Services.csproj", "{235D4760-B2D6-43F1-B5B6-585A20AAAF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.ServicesHosting", "Services\WebStore.ServicesHosting\WebStore.ServicesHosting.csproj", "{1F70F40E-2D50-4F6D-977E-3991E84101B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.ServicesHosting", "Services\WebStore.ServicesHosting\WebStore.ServicesHosting.csproj", "{1F70F40E-2D50-4F6D-977E-3991E84101B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Logger", "Common\WebStore.Logger\WebStore.Logger.csproj", "{3A76C908-6615-42A2-8EF6-F7AECA884522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F70F40E-2D50-4F6D-977E-3991E84101B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A76C908-6615-42A2-8EF6-F7AECA884522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A76C908-6615-42A2-8EF6-F7AECA884522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A76C908-6615-42A2-8EF6-F7AECA884522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A76C908-6615-42A2-8EF6-F7AECA884522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{9EA70DCC-B4A9-4453-8CB9-D6B5683FAE6C} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
 		{C6FFD3C1-58DC-4FE5-98E5-89899F7E9ECB} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
 		{1F70F40E-2D50-4F6D-977E-3991E84101B5} = {9F894CD8-A9B8-4DD2-A141-66F0F8888A87}
+		{3A76C908-6615-42A2-8EF6-F7AECA884522} = {5E65E749-3A05-4E39-B7BF-1A6F00CED9E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DABD886B-2B4A-419E-A808-AC7A41F56068}

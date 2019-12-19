@@ -8,7 +8,7 @@ namespace WebStore
 {
     public class Program
     {
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Program));
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Program));
 
         public static void Main(string[] args)
         {
