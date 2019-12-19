@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebStore.Interfaces;
@@ -18,6 +19,8 @@ namespace WebStore.Controllers
 
         public async Task<IActionResult> Index()
         {
+            throw new Exception("No pasaran!");
+
             _logger.LogInformation("index action requested");
             _logger.LogTrace("trace! winter is coming!");
             _logger.LogInformation("info! winter is coming!");
@@ -46,6 +49,20 @@ namespace WebStore.Controllers
         }
 
         public IActionResult Blog()
+        {
+            return View();
+        }
+
+        //home/errorstatus/403
+        public IActionResult ErrorStatus(string id)
+        {
+            if (id == "404")
+                return RedirectToAction("NotFound");
+
+            return Content($"Статуcный код ошибки: {id}");
+        }
+
+        public IActionResult Error()
         {
             return View();
         }

@@ -72,7 +72,8 @@ namespace WebStore.ServicesHosting
                     "/swagger/v1/swagger.json", "My WebStore API V1"));
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
     }

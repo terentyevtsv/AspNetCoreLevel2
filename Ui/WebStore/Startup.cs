@@ -84,10 +84,19 @@ namespace WebStore
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // Переход при исключении
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStatusCodePagesWithRedirects("~/Home/ErrorStatus/{0}");
 
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseMvc(routes =>
             {
@@ -99,10 +108,10 @@ namespace WebStore
                     "default", "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }
