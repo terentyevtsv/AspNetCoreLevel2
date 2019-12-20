@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using WebStore.DAL.Context;
 using WebStore.DomainNew.Entities;
 using WebStore.Interfaces;
+using WebStore.Logger;
 using WebStore.Services;
 using WebStore.Services.Memory;
 using WebStore.Services.Sql;
@@ -57,8 +59,12 @@ namespace WebStore.ServicesHosting
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
@@ -66,7 +72,8 @@ namespace WebStore.ServicesHosting
                     "/swagger/v1/swagger.json", "My WebStore API V1"));
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
     }
