@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<WebStore.DomainNew.Dto.ProductDto>
 @{
     ViewBag.Title = "Список товаров";
 }
@@ -18,13 +18,13 @@
             @Html.DisplayNameFor(model => model.Order)
         </th>
             
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CategoryId)
         </th>
             
         <th>
             @Html.DisplayNameFor(model => model.BrandId)
-        </th>
+        </th>*@
             
         <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
@@ -51,13 +51,13 @@
                 @Html.DisplayFor(modelItem => productItem.Order)
             </td>
 
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => productItem.CategoryId)
             </td>
 
             <td>
                 @Html.DisplayFor(modelItem => productItem.BrandId)
-            </td>
+            </td>*@
 
             <td>
                 @Html.DisplayFor(modelItem => productItem.ImageUrl)
