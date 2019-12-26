@@ -6,15 +6,18 @@ using Moq;
 using WebStore.Controllers;
 using WebStore.Interfaces;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace WebStore.Tests
 {
     public class HomeControllerTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
         private readonly HomeController _controller;
 
-        public HomeControllerTests()
+        public HomeControllerTests(ITestOutputHelper testOutputHelper)
         {
+            _testOutputHelper = testOutputHelper;
             var mockService = new Mock<IValueService>();
             mockService.Setup(s => s.GetAsync())
                 .ReturnsAsync(new List<string>
@@ -25,9 +28,21 @@ namespace WebStore.Tests
                 mockService.Object, null);
         }
 
+        [Theory(DisplayName = "Add Numbers")]
+        [InlineData(4, 5, 9)]
+        [InlineData(2, 3, 5)]
+        public void TestAddNumbers(int x, int y, int expectedResult)
+        {
+            _testOutputHelper.WriteLine($"current x={x}");
+
+            Assert.Equal(4, x);
+            Assert.Equal(5, y);
+        }
+
         [Fact]
         public async Task IndexMethodReturnsViewWithValues()
         {
+            _testOutputHelper.WriteLine("This is extra output...");
             // Arange - заготовка входных данных в конструкторе
 
             // Act
