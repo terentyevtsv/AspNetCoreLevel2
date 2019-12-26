@@ -19,15 +19,15 @@ namespace WebStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            throw new Exception("No pasaran!");
+            //throw new Exception("No pasaran!");
 
-            _logger.LogInformation("index action requested");
-            _logger.LogTrace("trace! winter is coming!");
-            _logger.LogInformation("info! winter is coming!");
-            _logger.LogWarning("warning! winter is coming!");
-            _logger.LogDebug("debug! winter is coming!");
-            _logger.LogError("error! winter is coming!");
-            _logger.LogCritical("critical! winter is coming!");
+            _logger?.LogInformation("index action requested");
+            _logger?.LogTrace("trace! winter is coming!");
+            _logger?.LogInformation("info! winter is coming!");
+            _logger?.LogWarning("warning! winter is coming!");
+            _logger?.LogDebug("debug! winter is coming!");
+            _logger?.LogError("error! winter is coming!");
+            _logger?.LogCritical("critical! winter is coming!");
 
             var values = await _valueService.GetAsync();
             return View(values);
