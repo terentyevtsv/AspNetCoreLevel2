@@ -49,10 +49,7 @@ namespace WebStore.Services
 
         public void RemoveAll()
         {
-            _cartStore.Cart = new Cart
-            {
-                CartItems = new List<CartItem>()
-            };
+            _cartStore.Cart.CartItems.Clear();
         }
 
         public void AddToCart(int id)
