@@ -67,7 +67,7 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_AddToCart_WorksCorrect()
+        public void CartServiceAddToCartWorksCorrect()
         {
             // Arrange
             // подготовим пустую корзину
@@ -78,7 +78,9 @@ namespace WebStore.Tests
 
             var productData = new Mock<IProductService>();
             var cartStore = new Mock<ICartStore>();
-            cartStore.Setup(c => c.Cart).Returns(cart);
+            cartStore
+                .Setup(c => c.Cart)
+                .Returns(cart);
 
             var cartService = new CartService(productData.Object, cartStore.Object);
 
@@ -92,7 +94,7 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_AddToCart_Increment_Quantity()
+        public void CartServiceAddToCartIncrementQuantity()
         {
             // Arrange
             // подготовим корзину с товарами
@@ -100,13 +102,19 @@ namespace WebStore.Tests
             {
                 CartItems = new List<CartItem>
                 {
-                    new CartItem { ProductId = 5, Quantity = 2 }
+                    new CartItem
+                    {
+                        ProductId = 5,
+                        Quantity = 2
+                    }
                 }
             };
 
             var productData = new Mock<IProductService>();
             var cartStore = new Mock<ICartStore>();
-            cartStore.Setup(c => c.Cart).Returns(cart);
+            cartStore
+                .Setup(c => c.Cart)
+                .Returns(cart);
 
             var cartService = new CartService(productData.Object, cartStore.Object);
 
@@ -119,7 +127,7 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_RemoveFromCart_Removes_Correct_Item()
+        public void CartServiceRemoveFromCartRemovesCorrectItem()
         {
             // Arrange
             // корзина с товарами
@@ -127,14 +135,24 @@ namespace WebStore.Tests
             {
                 CartItems = new List<CartItem>
                 {
-                    new CartItem { ProductId = 1, Quantity = 3},
-                    new CartItem { ProductId = 2, Quantity = 1}
+                    new CartItem
+                    {
+                        ProductId = 1,
+                        Quantity = 3
+                    },
+                    new CartItem
+                    {
+                        ProductId = 2,
+                        Quantity = 1
+                    }
                 }
             };
 
             var productData = new Mock<IProductService>();
             var cartStore = new Mock<ICartStore>();
-            cartStore.Setup(c => c.Cart).Returns(cart);
+            cartStore
+                .Setup(c => c.Cart)
+                .Returns(cart);
 
             var cartService = new CartService(productData.Object, cartStore.Object);
 
@@ -149,7 +167,7 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_RemoveAll_Clear_Cart()
+        public void CartServiceRemoveAllClearCart()
         {
             // Arrange
             // корзина с товарами
@@ -172,7 +190,9 @@ namespace WebStore.Tests
 
             var productData = new Mock<IProductService>();
             var cartStore = new Mock<ICartStore>();
-            cartStore.Setup(c => c.Cart).Returns(cart);
+            cartStore
+                .Setup(c => c.Cart)
+                .Returns(cart);
 
             var cartService = new CartService(productData.Object, cartStore.Object);
 
@@ -186,7 +206,7 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_Remove_Item_When_Decrement()
+        public void CartServiceRemoveItemWhenDecrement()
         {
             // Arrange
             // такая же корзина, как и в прежнем тесте
@@ -194,8 +214,16 @@ namespace WebStore.Tests
             {
                 CartItems = new List<CartItem>
                 {
-                    new CartItem {ProductId = 1,Quantity = 3},
-                    new CartItem {ProductId = 2, Quantity = 1}
+                    new CartItem
+                    {
+                        ProductId = 1,
+                        Quantity = 3
+                    },
+                    new CartItem
+                    {
+                        ProductId = 2,
+                        Quantity = 1
+                    }
                 }
             };
 
@@ -216,14 +244,18 @@ namespace WebStore.Tests
         }
 
         [Fact]
-        public void CartService_TransformCart_WorksCorrect()
+        public void CartServiceTransformCartWorksCorrect()
         {
             // Arrange
             var cart = new Cart
             {
                 CartItems = new List<CartItem>
                 {
-                    new CartItem {ProductId = 1, Quantity = 4}
+                    new CartItem
+                    {
+                        ProductId = 1,
+                        Quantity = 4
+                    }
                 }
             };
             var products = new List<ProductDto>
@@ -244,7 +276,9 @@ namespace WebStore.Tests
                     c.GetProducts(It.IsAny<ProductsFilter>()))
                 .Returns(products);
             var cartStore = new Mock<ICartStore>();
-            cartStore.Setup(c => c.Cart).Returns(cart);
+            cartStore
+                .Setup(c => c.Cart)
+                .Returns(cart);
 
             var cartService = new CartService(productData.Object, cartStore.Object);
 
