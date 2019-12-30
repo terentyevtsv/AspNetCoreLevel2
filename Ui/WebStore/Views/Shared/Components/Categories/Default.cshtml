@@ -1,8 +1,8 @@
-﻿@model IEnumerable<WebStore.DomainNew.ViewModels.CategoryViewModel>;
+﻿@model WebStore.DomainNew.ViewModels.CategoryCompleteViewModel;
 
 <h2>Category</h2>
 <div class="panel-group category-products" id="accordian">
-    @foreach (var categoryViewModel in Model)
+    @foreach (var categoryViewModel in Model.Categories)
     {
         if (categoryViewModel.ChildCategories.Any())
         {
@@ -15,12 +15,13 @@
                         </a>
                     </h4>
                 </div>
-                <div id="@categoryViewModel.Name.ToLower()" class="panel-collapse collapse">
+                <div id="@categoryViewModel.Name.ToLower()" 
+                     class="panel-collapse collapse @(categoryViewModel.Id == Model.CurrentParentCategoryId ? "in" : null)">
                     <div class="panel-body">
                         <ul>
                             @foreach (var childCategoryViewModel in categoryViewModel.ChildCategories)
                             {
-                                <li>
+                                <li @(childCategoryViewModel.Id == Model.CurrentCategoryId ? "class=active" : null)>
                                     <a asp-controller="Catalog" asp-action="Shop" asp-route-categoryId="@childCategoryViewModel.Id">
                                         @childCategoryViewModel.Name
                                     </a>
@@ -34,9 +35,10 @@
             continue;
         }
 
+        var isActiveCssClass = (categoryViewModel.Id == Model.CurrentCategoryId) ? "active" : "";
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">
+                <h4 class="panel-title @isActiveCssClass">
                     <a asp-controller="Catalog" asp-action="Shop" asp-route-CategoryId="@categoryViewModel.Id">
                         @categoryViewModel.Name
                     </a>

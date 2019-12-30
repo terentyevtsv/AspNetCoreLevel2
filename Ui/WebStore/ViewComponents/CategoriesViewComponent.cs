@@ -16,14 +16,23 @@ namespace WebStore.ViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string categoryId)
         {
-            var categories = GetCategories();
-            return View(categories);
+            int.TryParse(categoryId, out var categoryIdInt);
+
+            var categories = GetCategories(categoryIdInt, out var parentCategoryId);
+            return View(new CategoryCompleteViewModel
+            {
+                Categories = categories,
+                CurrentCategoryId = categoryIdInt,
+                CurrentParentCategoryId = parentCategoryId
+            });
         }
 
-        private List<CategoryViewModel> GetCategories()
+        private List<CategoryViewModel> GetCategories(int? categoryId, out int? parentCategoryId)
         {
+            parentCategoryId = null;
+
             var categories = _productService.GetCategories()
                 .ToList();
             var parentCategories = categories
@@ -52,9 +61,14 @@ namespace WebStore.ViewComponents
                     })
                     .OrderBy(c => c.Order)
                     .ToList();
+                foreach (var childCategoryViewModel in childCategoryViewModels)
+                {
+                    // Определение родительской категории
+                    if (childCategoryViewModel.Id == categoryId)
+                        parentCategoryId = parentCategory.Id;
 
-                parentCategoryViewModel.ChildCategories
-                    .AddRange(childCategoryViewModels);
+                    parentCategoryViewModel.ChildCategories.Add(childCategoryViewModel);
+                }
 
                 categoryViewModels.Add(parentCategoryViewModel);
             }

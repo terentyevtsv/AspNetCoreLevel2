@@ -1,5 +1,5 @@
 ﻿<div class="left-sidebar">
-    <vc:Categories></vc:Categories>
+    <vc:Categories category-id="@Context.Request.Query["CategoryId"].ToString()"/>
     <vc:Brands></vc:Brands>
 
     <div class="price-range">
