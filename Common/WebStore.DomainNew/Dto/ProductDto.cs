@@ -16,6 +16,8 @@ namespace WebStore.DomainNew.Dto
 
         public BrandDto Brand { get; set; }
 
+        public CategoryDto Category { get; set; }
+
         public bool IsNew { get; set; }
 
         public bool IsSale { get; set; }

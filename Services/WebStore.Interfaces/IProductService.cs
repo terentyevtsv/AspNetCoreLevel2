@@ -31,5 +31,19 @@ namespace WebStore.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         ProductDto GetProductById(int id);
+
+        /// <summary>
+        /// Категория по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Category GetCategoryById(int id);
+
+        /// <summary>
+        /// Бренд по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Brand GetBrandById(int id);
     }
 }

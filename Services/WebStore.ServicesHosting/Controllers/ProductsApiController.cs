@@ -48,5 +48,17 @@ namespace WebStore.ServicesHosting.Controllers
             var product = _productService.GetProductById(id);
             return product;
         }
+
+        [HttpGet("categories/{id}")]
+        public Category GetCategoryById(int id)
+        {
+            return _productService.GetCategoryById(id);
+        }
+
+        [HttpGet("brands/{id}")]
+        public Brand GetBrandById(int id)
+        {
+            return _productService.GetBrandById(id);
+        }
     }
 }

@@ -25,7 +25,12 @@ namespace WebStore.DomainNew.Helpers
                         Name = product.Brand.Name,
                         Order = product.Brand.Order
                     }
-                    : null
+                    : null,
+                Category = new CategoryDto
+                {
+                    Id = product.CategoryId,
+                    Name = product.Category.Name
+                }
             };
 
             return productDto;
