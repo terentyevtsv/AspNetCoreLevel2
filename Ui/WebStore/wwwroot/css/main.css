@@ -2525,3 +2525,7 @@ h2.title {
     text-decoration: underline;
 }
 
+.brands-name ul li.active {
+    text-decoration: underline;
+}
+
