@@ -16,16 +16,29 @@ namespace WebStore.ViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string categoryId)
         {
-            var categories = GetCategories();
-            return View(categories);
+            // Изначально категория не выбрана
+            int.TryParse(categoryId, out var categoryIdInt);
+
+            var categories = GetCategories(categoryIdInt, out var parentCategoryId);
+            return View(new CategoryCompleteViewModel
+            {
+                Categories = categories,
+                CurrentCategoryId = categoryIdInt,
+                CurrentParentCategoryId = parentCategoryId
+            });
         }
 
-        private List<CategoryViewModel> GetCategories()
+        private List<CategoryViewModel> GetCategories(int? categoryId, out int? parentCategoryId)
         {
+            parentCategoryId = null;
+
+            // Все категории
             var categories = _productService.GetCategories()
                 .ToList();
+
+            // Родительские категории
             var parentCategories = categories
                 .Where(c => !c.ParentId.HasValue)
                 .ToList();
@@ -33,6 +46,7 @@ namespace WebStore.ViewComponents
             var categoryViewModels = new List<CategoryViewModel>();
             foreach (var parentCategory in parentCategories)
             {
+                // Родительская категория
                 var parentCategoryViewModel = new CategoryViewModel
                 {
                     Id = parentCategory.Id,
@@ -41,6 +55,7 @@ namespace WebStore.ViewComponents
                     ParentCategory = null
                 };
 
+                // Дочерние категории для текущей родительской
                 var childCategoryViewModels = categories
                     .Where(c => c.ParentId == parentCategory.Id)
                     .Select(c => new CategoryViewModel
@@ -52,9 +67,15 @@ namespace WebStore.ViewComponents
                     })
                     .OrderBy(c => c.Order)
                     .ToList();
+                foreach (var childCategoryViewModel in childCategoryViewModels)
+                {
+                    // Определение родительской категории. Если категория не выбрана то и родительская null
+                    if (childCategoryViewModel.Id == categoryId)
+                        parentCategoryId = parentCategory.Id;
 
-                parentCategoryViewModel.ChildCategories
-                    .AddRange(childCategoryViewModels);
+                    // Формирование списка дочерних категорий для текущей родительской
+                    parentCategoryViewModel.ChildCategories.Add(childCategoryViewModel);
+                }
 
                 categoryViewModels.Add(parentCategoryViewModel);
             }

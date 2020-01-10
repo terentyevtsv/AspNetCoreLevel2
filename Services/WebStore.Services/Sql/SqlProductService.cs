@@ -69,5 +69,19 @@ namespace WebStore.Services.Sql
 
             return null;
         }
+
+        public Category GetCategoryById(int id)
+        {
+            var category = _webStoreContext.Categories
+                .SingleOrDefault(c => c.Id == id);
+            return category;
+        }
+
+        public Brand GetBrandById(int id)
+        {
+            var brand = _webStoreContext.Brands
+                .SingleOrDefault(b => b.Id == id);
+            return brand;
+        }
     }
 }
