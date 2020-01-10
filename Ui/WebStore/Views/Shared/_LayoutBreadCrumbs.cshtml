@@ -19,6 +19,7 @@
         type = BreadCrumbType.Item;
     }
 
+    // id бренда, категории или товара
     var id = 0;
 
     switch (type)
@@ -32,6 +33,7 @@
             id = int.Parse(Context.Request.Query["brandId"].ToString());
             break;
         case BreadCrumbType.Item:
+            // Переход на товар через Бренд?
             if (Context.Request.Query.ContainsKey("fromBrand"))
             {
                 fromType = BreadCrumbType.Brand;

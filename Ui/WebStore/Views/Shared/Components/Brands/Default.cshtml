@@ -7,6 +7,7 @@
         <ul class="nav nav-pills nav-stacked">
             @foreach (var brandViewModel in Model.Brands)
             {
+                //Совпадает ли очередной отрисованный бренд с выбранным активным?
                 <li @(brandViewModel.Id == Model.CurrentBrandId ? "class=active" : null)>
                     <a asp-action="Shop" asp-controller="Catalog" asp-route-brandId="@brandViewModel.Id">
                         <span class="pull-right">

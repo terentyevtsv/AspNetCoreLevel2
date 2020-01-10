@@ -18,6 +18,7 @@ namespace WebStore.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(string categoryId)
         {
+            // Изначально категория не выбрана
             int.TryParse(categoryId, out var categoryIdInt);
 
             var categories = GetCategories(categoryIdInt, out var parentCategoryId);
@@ -33,8 +34,11 @@ namespace WebStore.ViewComponents
         {
             parentCategoryId = null;
 
+            // Все категории
             var categories = _productService.GetCategories()
                 .ToList();
+
+            // Родительские категории
             var parentCategories = categories
                 .Where(c => !c.ParentId.HasValue)
                 .ToList();
@@ -42,6 +46,7 @@ namespace WebStore.ViewComponents
             var categoryViewModels = new List<CategoryViewModel>();
             foreach (var parentCategory in parentCategories)
             {
+                // Родительская категория
                 var parentCategoryViewModel = new CategoryViewModel
                 {
                     Id = parentCategory.Id,
@@ -50,6 +55,7 @@ namespace WebStore.ViewComponents
                     ParentCategory = null
                 };
 
+                // Дочерние категории для текущей родительской
                 var childCategoryViewModels = categories
                     .Where(c => c.ParentId == parentCategory.Id)
                     .Select(c => new CategoryViewModel
@@ -63,10 +69,11 @@ namespace WebStore.ViewComponents
                     .ToList();
                 foreach (var childCategoryViewModel in childCategoryViewModels)
                 {
-                    // Определение родительской категории
+                    // Определение родительской категории. Если категория не выбрана то и родительская null
                     if (childCategoryViewModel.Id == categoryId)
                         parentCategoryId = parentCategory.Id;
 
+                    // Формирование списка дочерних категорий для текущей родительской
                     parentCategoryViewModel.ChildCategories.Add(childCategoryViewModel);
                 }
 

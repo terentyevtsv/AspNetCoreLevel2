@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebStore.DomainNew.ViewModels
+﻿namespace WebStore.DomainNew.ViewModels
 {
     public class BreadCrumbViewModel
     {

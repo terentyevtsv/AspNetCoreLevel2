@@ -6,6 +6,7 @@
     {
         if (categoryViewModel.ChildCategories.Any())
         {
+            //Категории с дочерними категориями
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -15,12 +16,14 @@
                         </a>
                     </h4>
                 </div>
+                @*Если текущая родительская категория выбрана то раскрываем её*@
                 <div id="@categoryViewModel.Name.ToLower()" 
                      class="panel-collapse collapse @(categoryViewModel.Id == Model.CurrentParentCategoryId ? "in" : null)">
                     <div class="panel-body">
                         <ul>
                             @foreach (var childCategoryViewModel in categoryViewModel.ChildCategories)
                             {
+                                //Текущая дочерняя категория активная?
                                 <li @(childCategoryViewModel.Id == Model.CurrentCategoryId ? "class=active" : null)>
                                     <a asp-controller="Catalog" asp-action="Shop" asp-route-categoryId="@childCategoryViewModel.Id">
                                         @childCategoryViewModel.Name
@@ -35,6 +38,7 @@
             continue;
         }
 
+        //Категория без дочерних категорий. Она просто становится активной если совпадает с выбранной
         var isActiveCssClass = (categoryViewModel.Id == Model.CurrentCategoryId) ? "active" : "";
         <div class="panel panel-default">
             <div class="panel-heading">

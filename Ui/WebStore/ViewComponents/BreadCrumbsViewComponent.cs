@@ -26,6 +26,7 @@ namespace WebStore.ViewComponents
             switch (type)
             {
                 case BreadCrumbType.Category:
+                    // Название категории
                     var category = _productService.GetCategoryById(id);
                     return View(new List<BreadCrumbViewModel>
                     {
@@ -38,6 +39,7 @@ namespace WebStore.ViewComponents
                     });
                     
                 case BreadCrumbType.Brand:
+                    // Название бренда
                     var brand = _productService.GetBrandById(id);
                     return View(new List<BreadCrumbViewModel>
                     {
@@ -50,6 +52,7 @@ namespace WebStore.ViewComponents
                     });
                     
                 case BreadCrumbType.Item:
+                    // Категория или бренд + название товара
                     var crumbs = GetItemBreadCrumbs(id, fromType, type);
                     return View(crumbs);
 
@@ -59,6 +62,13 @@ namespace WebStore.ViewComponents
             }
         }
 
+        /// <summary>
+        /// Формирует список бренд+товар или категория+товар
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="fromType"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private IEnumerable<BreadCrumbViewModel> GetItemBreadCrumbs(int id, BreadCrumbType fromType,
             BreadCrumbType type)
         {

@@ -19,6 +19,7 @@ namespace WebStore.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(string brandId)
         {
+            // Изначально бренд не выбран
             int.TryParse(brandId, out var brandIdInt);
 
             var brands = GetBrands();
