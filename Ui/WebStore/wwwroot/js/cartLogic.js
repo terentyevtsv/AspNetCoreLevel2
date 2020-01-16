@@ -6,7 +6,9 @@
         // Ссылка на получение представления корзины
         getCartViewLink: '',
         // Ссылка на удаление товара из корзины
-        removeFromCartLink: ''
+        removeFromCartLink: '',
+        // Ссылка на декремент товара из корзины
+        decrementFromCartLink: ''
     },
 
     init: function (properties) {
@@ -16,6 +18,7 @@
         $('a.callAddToCart').on('click', Cart.addToCart);
         $('a.cart_quantity_delete').on('click', Cart.removeFromCart);
         $('a.cart_quantity_up').on('click', Cart.incrementItem);
+        $('a.cart_quantity_down').on('click', Cart.decrementItem);
     },
 
     addToCart: function (event) {
@@ -67,6 +70,10 @@
         var button = $(this);
         // Отменяем дефолтное действие
         event.preventDefault();
+        Cart.removeFromCart1(button);
+    },
+
+    removeFromCart1: function(button) {
         // Получение идентификатора из атрибута
         var id = button.data('id');
 
@@ -122,5 +129,36 @@
         $('.cart_total_price', container).data('price', totalPrice);
         // Меняем значение
         $('.cart_total_price', container).html(value);
+    },
+    decrementItem: function(event) {
+        var button = $(this);
+        // Строка товара
+        var container = button.closest('tr');
+        // Отменяем дефолтное действие
+        event.preventDefault();
+        // Получение идентификатора из атрибута
+        var id = button.data('id');
+
+        // вызываем ajax-метод get по адресу addToCartLink 
+        $.get(Cart._properties.decrementFromCartLink + '/' + id)
+            .done(function () {
+                // Получаем значение
+                var value = parseInt($('.cart_quantity_input', container).val());
+                // Уменьшаем его на 1
+                --value;
+                if (value === 0) {
+                    Cart.removeFromCart1(button);
+                } else {
+                    $('.cart_quantity_input', container).val(value);
+                }
+
+                // Обновляем цену
+                Cart.refreshPrice(container);
+                // В случае успеха – обновляем представление
+                Cart.refreshCartView();
+            })
+            .fail(function () {
+                console.log('incrementItem error');
+            });
     }
 }
