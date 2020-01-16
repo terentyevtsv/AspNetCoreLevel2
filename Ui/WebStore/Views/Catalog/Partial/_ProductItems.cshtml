@@ -31,8 +31,8 @@
                         </a>
                     }
                     
-                    <a class="btn btn-default add-to-cart" asp-controller="Cart" asp-action="AddToCart"
-                       asp-route-id="@productViewModel.Id" asp-route-returnUrl="@Context.Request.Path">
+                    <a class="btn btn-default add-to-cart callAddToCart" 
+                       data-id="@productViewModel.Id">
                         <i class="fa fa-shopping-cart"></i>Add to cart
                     </a>
                 </div>
