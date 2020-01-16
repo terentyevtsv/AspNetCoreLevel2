@@ -27,10 +27,10 @@ namespace WebStore.Clients.Services
             return brands;
         }
 
-        public IEnumerable<ProductDto> GetProducts(ProductsFilter filter)
+        public PagedProductDto GetProducts(ProductsFilter filter)
         {
             var response = Post($"{ServiceAddress}", filter);
-            var products = response.Content.ReadAsAsync<List<ProductDto>>().Result;
+            var products = response.Content.ReadAsAsync<PagedProductDto>().Result;
             return products;
         }
 

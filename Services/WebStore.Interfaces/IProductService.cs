@@ -23,7 +23,7 @@ namespace WebStore.Interfaces
         /// Товары
         /// </summary>
         /// <returns></returns>
-        IEnumerable<ProductDto> GetProducts(ProductsFilter filter);
+        PagedProductDto GetProducts(ProductsFilter filter);
 
         /// <summary>
         /// Получить товар по id

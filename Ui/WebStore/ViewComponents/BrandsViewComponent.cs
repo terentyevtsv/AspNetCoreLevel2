@@ -45,6 +45,7 @@ namespace WebStore.ViewComponents
                 };
                 var products = _productService
                     .GetProducts(productFilter)
+                    .Products
                     .ToList();
 
                 var brandViewModel = new BrandViewModel
