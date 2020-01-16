@@ -81,6 +81,7 @@
         $.get(Cart._properties.removeFromCartLink + '/' + id)
             .done(function () {
                 button.closest('tr').remove();
+                Cart.refreshTotalPrice();
                 // В случае успеха – обновляем представление
                 Cart.refreshCartView();
             })
@@ -123,13 +124,15 @@
         // Рассчитываем общую стоимость
         var totalPrice = quantity * price;
         // Для отображения в виде валюты
-        var value = totalPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        var value = totalPrice.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
 
         // Сохраняем стоимость для поля «Итого»
         $('.cart_total_price', container).data('price', totalPrice);
         // Меняем значение
         $('.cart_total_price', container).html(value);
+        Cart.refreshTotalPrice();
     },
+
     decrementItem: function(event) {
         var button = $(this);
         // Строка товара
@@ -160,5 +163,24 @@
             .fail(function () {
                 console.log('incrementItem error');
             });
+    },
+
+    refreshTotalPrice: function () {
+	    var total = 0;
+	    $('.cart_total_price').each(function () {
+		    var price = parseFloat($(this).data('price'));
+		    total += price;
+	    });
+
+	    var value = total.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+        $('#subTotalOrderSum').html(value);
+
+        var tax = total * 0.13;
+        value = tax.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+        $('#tax').html(value);
+
+        var totalOrderSum = total + tax;
+        value = totalOrderSum.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+        $('#totalOrderSum').html(value);
     }
 }
