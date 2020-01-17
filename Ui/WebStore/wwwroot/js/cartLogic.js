@@ -70,10 +70,7 @@
         var button = $(this);
         // Отменяем дефолтное действие
         event.preventDefault();
-        Cart.removeFromCart1(button);
-    },
 
-    removeFromCart1: function(button) {
         // Получение идентификатора из атрибута
         var id = button.data('id');
 
@@ -150,7 +147,7 @@
                 // Уменьшаем его на 1
                 --value;
                 if (value === 0) {
-                    Cart.removeFromCart1(button);
+                    container.remove();
                 } else {
                     $('.cart_quantity_input', container).val(value);
                 }
