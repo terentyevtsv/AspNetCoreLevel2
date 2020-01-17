@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebStore.DomainNew.Filters;
 using WebStore.DomainNew.ViewModels;
 using WebStore.Interfaces;
@@ -9,26 +10,33 @@ namespace WebStore.Controllers
     public class CatalogController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IConfiguration _configuration;
 
-        public CatalogController(IProductService productService)
+        public CatalogController(IProductService productService,
+            IConfiguration configuration)
         {
             _productService = productService;
+            _configuration = configuration;
         }
 
-        public IActionResult Shop(int? categoryId, int? brandId)
+        public IActionResult Shop(int? categoryId, int? brandId, int page = 1)
         {
+            var pageSize = int.Parse(_configuration["PageSize"]);
+
             var products = _productService.GetProducts(
                 new ProductsFilter
                 {
                     CategoryId = categoryId,
-                    BrandId = brandId
+                    BrandId = brandId,
+                    PageSize = pageSize,
+                    Page = page
                 });
 
             var catalogViewModel = new CatalogViewModel
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.Select(p => new ProductViewModel
+                Products = products.Products.Select(p => new ProductViewModel
                     {
                         Id = p.Id,
                         ImageUrl = p.ImageUrl,
@@ -40,7 +48,13 @@ namespace WebStore.Controllers
                         BrandName = p.Brand?.Name ?? string.Empty
                     })
                     .OrderBy(p => p.Order)
-                    .ToList()
+                    .ToList(),
+                PageViewModel = new PageViewModel
+                {
+                    PageSize = pageSize,
+                    PageNumber = page,
+                    TotalItems = products.TotalCount
+                }
             };
 
             return View(catalogViewModel);

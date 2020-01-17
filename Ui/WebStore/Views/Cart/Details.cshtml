@@ -31,10 +31,10 @@
                         @if (Model.CartViewModel.TotalPrice > 0)
                         {
                             <ul>
-                                <li>Cart Sub Total <span>@Model.CartViewModel.Price.ToString("C")</span></li>
-                                <li>Eco Tax <span>@Model.CartViewModel.Tax.ToString("C")</span></li>
+                                <li>Cart Sub Total <span id="subTotalOrderSum">@Model.CartViewModel.Price.ToString("C")</span></li>
+                                <li>Eco Tax <span id="tax">@Model.CartViewModel.Tax.ToString("C")</span></li>
                                 <li>Shipping Cost <span>Free</span></li>
-                                <li>Total <span>@Model.CartViewModel.TotalPrice.ToString("C")</span></li>
+                                <li>Total <span id="totalOrderSum">@Model.CartViewModel.TotalPrice.ToString("C")</span></li>
                             </ul>
                             <input type="submit" value="Оформить заказ" class="btn btn-default check_out" />
                         }

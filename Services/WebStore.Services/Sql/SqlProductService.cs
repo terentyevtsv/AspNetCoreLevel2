@@ -32,7 +32,7 @@ namespace WebStore.Services.Sql
                 .Brands.ToList();
         }
 
-        public IEnumerable<ProductDto> GetProducts(ProductsFilter filter)
+        public PagedProductDto GetProducts(ProductsFilter filter)
         {
             var query = _webStoreContext
                 .Products
@@ -53,7 +53,24 @@ namespace WebStore.Services.Sql
                     .Equals(filter.CategoryId.Value));
             }
 
-            return query.Select(p => p.ToDto()).ToList();
+            var model = new PagedProductDto { TotalCount = query.Count() };
+
+            if (filter.PageSize.HasValue)
+            {
+                model.Products = query
+                    .Skip((filter.Page - 1) * (int)filter.PageSize)
+                    .Take((int)filter.PageSize)
+                    .Select(p => p.ToDto())
+                    .ToList();
+            }
+            else
+            {
+                model.Products = query
+                    .Select(p => p.ToDto())
+                    .ToList();
+            }
+
+            return model;
         }
 
         public ProductDto GetProductById(int id)

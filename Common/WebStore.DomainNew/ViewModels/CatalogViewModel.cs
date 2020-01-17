@@ -9,5 +9,7 @@ namespace WebStore.DomainNew.ViewModels
         public int? BrandId { get; set; }
 
         public IEnumerable<ProductViewModel> Products { get; set; }
+
+        public PageViewModel PageViewModel { get; set; }
     }
 }

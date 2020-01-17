@@ -72,6 +72,7 @@ namespace WebStore
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartStore, CookieCartStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
