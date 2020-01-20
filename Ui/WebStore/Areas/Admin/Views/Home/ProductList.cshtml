@@ -1,70 +1,62 @@
-﻿@model IEnumerable<WebStore.DomainNew.Dto.ProductDto>
+﻿@model WebStore.DomainNew.Dto.PagedProductDto
 @{
     ViewBag.Title = "Список товаров";
 }
 
+    <a asp-action="Edit" class="btn btn-success">Добавить продукт</a>
+
 <table class="table">
     <thead>
     <tr>
+        <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Name)
         </th>
-
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Brand)
         </th>
-            
         <th>
-            @Html.DisplayNameFor(model => model.Order)
+            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Category)
         </th>
-            
-        @*<th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
-            
         <th>
-            @Html.DisplayNameFor(model => model.BrandId)
-        </th>*@
-            
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ImageUrl)
         </th>
-            
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Price)
         </th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var productItem in Model)
+    @foreach (var productItem in Model.Products)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => productItem.Id)
+                <a asp-action="Edit" title="Редактировать" asp-route-Id="@productItem.Id">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
             </td>
 
             <td>
                 @Html.DisplayFor(modelItem => productItem.Name)
             </td>
-
             <td>
-                @Html.DisplayFor(modelItem => productItem.Order)
+                @Html.DisplayFor(modelItem => productItem.Brand.Name)
             </td>
-
-            @*<td>
-                @Html.DisplayFor(modelItem => productItem.CategoryId)
-            </td>
-
             <td>
-                @Html.DisplayFor(modelItem => productItem.BrandId)
-            </td>*@
-
-            <td>
-                @Html.DisplayFor(modelItem => productItem.ImageUrl)
+                @Html.DisplayFor(modelItem => productItem.Category.Name)
             </td>
-
+            <td>
+                <img src="~/images/shop/@productItem.ImageUrl" width="50px" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => productItem.Price)
+            </td>
+
+            <td>
+                <a asp-action="Delete" asp-route-Id="@productItem.Id" title="Удалить">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </a>
             </td>
         </tr>
     }

@@ -45,5 +45,17 @@ namespace WebStore.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Brand GetBrandById(int id);
+
+        /// <summary>Создать товар</summary>
+        /// <param name="product">Сущность Product</param>
+        SaveResultDto CreateProduct(ProductDto product);
+
+        /// <summary>Обновить товар</summary>
+        /// <param name="product">Сущность Product</param>
+        SaveResultDto UpdateProduct(ProductDto product);
+
+        /// <summary>Удалить товар</summary>
+        /// <param name="productId">Id товара</param>
+        SaveResultDto DeleteProduct(int productId);
     }
 }

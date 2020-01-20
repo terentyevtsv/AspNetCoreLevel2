@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
@@ -99,6 +100,77 @@ namespace WebStore.Services.Sql
             var brand = _webStoreContext.Brands
                 .SingleOrDefault(b => b.Id == id);
             return brand;
+        }
+
+        public SaveResultDto CreateProduct(ProductDto product)
+        {
+            try
+            {
+                _webStoreContext.Products.Add(product.ToProduct());
+                _webStoreContext.SaveChanges();
+
+                return new SaveResultDto(true);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return new SaveResultDto(false, ex.Message);
+            }
+            catch (DbUpdateException ex)
+            {
+                return new SaveResultDto(false, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return new SaveResultDto(false, ex.Message);
+            }
+        }
+
+        public SaveResultDto UpdateProduct(ProductDto productDto)
+        {
+            var product = _webStoreContext.Products.FirstOrDefault(p => p.Id == productDto.Id);
+            if (product == null)
+            {
+                return new SaveResultDto(false, "Entity does not exist");
+            }
+
+            // скопируем все поля модели
+            product.BrandId = productDto.Brand.Id;
+            product.CategoryId = productDto.Category.Id;
+            product.ImageUrl = productDto.ImageUrl;
+            product.Order = productDto.Order;
+            product.Price = productDto.Price;
+            product.Name = productDto.Name;
+
+            try
+            {
+                _webStoreContext.SaveChanges();
+                return new SaveResultDto(true);
+            }
+            catch (Exception ex)
+            {
+                return new SaveResultDto(false, ex.Message);
+            }
+        }
+
+        public SaveResultDto DeleteProduct(int productId)
+        {
+            var product = _webStoreContext.Products.FirstOrDefault(p => p.Id == productId);
+            if (product == null)
+            {
+                return new SaveResultDto(false, "Entity does not exist");
+            }
+
+            try
+            {
+                _webStoreContext.Remove(product);
+                _webStoreContext.SaveChanges();
+
+                return new SaveResultDto(true);
+            }
+            catch (Exception ex)
+            {
+                return new SaveResultDto(false, ex.Message);
+            }
         }
     }
 }
