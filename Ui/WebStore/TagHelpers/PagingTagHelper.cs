@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -51,11 +52,19 @@ namespace WebStore.TagHelpers
             var a = new TagBuilder("a");
 
             if (pageNumber == PageModel.PageNumber)
+            {
+                // Атрибут data-page=номер страницы
+                a.MergeAttribute("data-page", PageModel.PageNumber.ToString());
                 li.AddCssClass("active");
+            }
             else
             {
                 PageUrlValues["page"] = pageNumber;
-                a.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
+                a.Attributes["href"] = "#";
+
+                // Атрибуты с информацией о выбранной категории или бренда и номере страницы
+                foreach (var (key, value) in PageUrlValues.Where(p => p.Value != null))
+                    a.MergeAttribute($"data-{key}", value.ToString());
             }
 
             a.InnerHtml.AppendHtml(pageNumber.ToString());
