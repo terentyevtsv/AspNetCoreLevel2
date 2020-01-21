@@ -39,6 +39,7 @@ namespace WebStore.Services.Sql
                 .Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
+                .Where(p => !p.IsDeleted)
                 .AsQueryable();
 
             if (filter.BrandId.HasValue)
@@ -162,7 +163,7 @@ namespace WebStore.Services.Sql
 
             try
             {
-                _webStoreContext.Remove(product);
+                product.IsDeleted = true;
                 _webStoreContext.SaveChanges();
 
                 return new SaveResultDto(true);

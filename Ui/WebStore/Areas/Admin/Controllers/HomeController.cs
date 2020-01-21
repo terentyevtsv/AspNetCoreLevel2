@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebStore.DomainNew.Entities;
 using WebStore.DomainNew.Filters;
 using WebStore.DomainNew.Helpers;
 using WebStore.DomainNew.ViewModels;
@@ -81,5 +83,21 @@ namespace WebStore.Areas.Admin.Controllers
             return View(model);
 
         }
+        public IActionResult Delete(int id)
+        {
+            var product = _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+
+            return View(product.ToViewModel(new List<Category>(), new List<Brand>()));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(ProductViewModel model)
+        {
+            _productService.DeleteProduct(model.Id);
+            return RedirectToAction(nameof(ProductList));
+        }
+
     }
 }
