@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using WebStore.Controllers;
 using WebStore.DomainNew.Dto;
@@ -19,8 +20,10 @@ namespace WebStore.Tests
         public CatalogControllerTests()
         {
             _productServiceMock = new Mock<IProductService>();
+            var mockConfiguration = new Mock<IConfiguration>();
+
             _catalogController = new CatalogController(
-                _productServiceMock.Object);
+                _productServiceMock.Object, mockConfiguration.Object);
         }
 
         // проверим, что метод controller.ProductDetails() возвращает корректную модель
@@ -89,15 +92,14 @@ namespace WebStore.Tests
 
         // проверяем корректную работу метода controller.Shop()
         [Fact]
-        public void Shop_Method_Returns_Correct_View()
+        public void ShopMethodReturnsCorrectView()
         {
             // Arrange
             // заглушка для метода 
             // должна возвращать какой-то список товаров List<ProductDto>
-            _productServiceMock
-                .Setup(p =>
-                    p.GetProducts(It.IsAny<ProductsFilter>()))
-                .Returns(() => new List<ProductDto>
+            var pagedProductDto = new PagedProductDto
+            {
+                Products = new List<ProductDto>
                 {
                     new ProductDto
                     {
@@ -126,7 +128,13 @@ namespace WebStore.Tests
                             Name = "TestBrand"
                         }
                     }
-                });
+                }
+            };
+
+            _productServiceMock
+                .Setup(p =>
+                    p.GetProducts(It.IsAny<ProductsFilter>()))
+                .Returns(pagedProductDto);
 
             // Act
             // вызываем тестируемый метод
