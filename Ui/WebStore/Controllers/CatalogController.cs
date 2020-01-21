@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebStore.DomainNew.Filters;
@@ -23,41 +25,57 @@ namespace WebStore.Controllers
         {
             var pageSize = int.Parse(_configuration["PageSize"]);
 
-            var products = _productService.GetProducts(
-                new ProductsFilter
-                {
-                    CategoryId = categoryId,
-                    BrandId = brandId,
-                    PageSize = pageSize,
-                    Page = page
-                });
+
+            var products = GetProducts(categoryId, brandId, page, out var totalCount)
+                .ToList();
 
             var catalogViewModel = new CatalogViewModel
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.Products.Select(p => new ProductViewModel
-                    {
-                        Id = p.Id,
-                        ImageUrl = p.ImageUrl,
-                        Name = p.Name,
-                        Order = p.Order,
-                        Price = p.Price,
-                        IsSale = p.IsSale,
-                        IsNew = p.IsNew,
-                        BrandName = p.Brand?.Name ?? string.Empty
-                    })
-                    .OrderBy(p => p.Order)
-                    .ToList(),
+                Products = products,
                 PageViewModel = new PageViewModel
                 {
                     PageSize = pageSize,
                     PageNumber = page,
-                    TotalItems = products.TotalCount
+                    TotalItems = totalCount
                 }
             };
 
             return View(catalogViewModel);
+        }
+
+        public IActionResult GetFilteredItems(int? categoryId, int? brandId, int page = 1)
+        {
+            var productsModel = GetProducts(categoryId, brandId, page, out var totalCount);
+
+            return PartialView("Partial/_ProductItems", productsModel);
+        }
+
+        private IEnumerable<ProductViewModel> GetProducts(int? categoryId, int? brandId, int page, out int totalCount)
+        {
+            var products = _productService.GetProducts(new ProductsFilter
+            {
+                CategoryId = categoryId,
+                BrandId = brandId,
+                Page = page,
+                PageSize = int.Parse(_configuration["PageSize"])
+            });
+            totalCount = products.TotalCount;
+
+            return products.Products.Select(p => new ProductViewModel
+                {
+                    Id = p.Id,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Order = p.Order,
+                    Price = p.Price,
+                    BrandName = p.Brand?.Name ?? String.Empty,
+                    IsNew = p.IsNew,
+                    IsSale = p.IsSale
+                })
+                .OrderBy(p => p.Order)
+                .ToList();
         }
 
         public IActionResult ProductDetails(int id)

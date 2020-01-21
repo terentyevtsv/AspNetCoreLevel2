@@ -60,5 +60,26 @@ namespace WebStore.ServicesHosting.Controllers
         {
             return _productService.GetBrandById(id);
         }
+
+        [HttpPost("create")]
+        public SaveResultDto CreateProduct([FromBody]ProductDto productDto)
+        {
+            var result = _productService.CreateProduct(productDto);
+            return result;
+        }
+
+        [HttpPut]
+        public SaveResultDto UpdateProduct([FromBody]ProductDto productDto)
+        {
+            var result = _productService.UpdateProduct(productDto);
+            return result;
+        }
+
+        [HttpDelete("{productId}")]
+        public SaveResultDto DeleteProduct(int productId)
+        {
+            var result = _productService.DeleteProduct(productId);
+            return result;
+        }
     }
 }

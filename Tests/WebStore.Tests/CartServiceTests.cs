@@ -258,15 +258,18 @@ namespace WebStore.Tests
                     }
                 }
             };
-            var products = new List<ProductDto>
+            var pagedProductDto = new PagedProductDto
             {
-                new ProductDto
-                {
-                    Id = 1,
-                    ImageUrl = "",
-                    Name = "Test",
-                    Order = 0,
-                    Price = 1.11m
+                Products = new List<ProductDto>
+                { 
+                    new ProductDto
+                    {
+                        Id = 1,
+                        ImageUrl = "",
+                        Name = "Test",
+                        Order = 0,
+                        Price = 1.11m
+                    }
                 }
             };
 
@@ -274,7 +277,7 @@ namespace WebStore.Tests
             productData
                 .Setup(c => 
                     c.GetProducts(It.IsAny<ProductsFilter>()))
-                .Returns(products);
+                .Returns(pagedProductDto);
             var cartStore = new Mock<ICartStore>();
             cartStore
                 .Setup(c => c.Cart)
@@ -288,6 +291,33 @@ namespace WebStore.Tests
             // Assert
             Assert.Equal(4, result.ItemsCount);
             Assert.Equal(1.11m, result.Items.First().Key.Price);
+        }
+
+        [Fact]
+        public void CartService_Decrement_Correct()
+        {
+            var cart = new Cart
+            {
+                CartItems = new List<CartItem>
+                {
+                    new CartItem {ProductId = 1,Quantity = 3},
+                    new CartItem {ProductId = 2, Quantity = 1}
+                }
+            };
+
+            var productData = new Mock<IProductService>();
+            var cartStore = new Mock<ICartStore>();
+            cartStore.Setup(c => c.Cart).Returns(cart);
+
+            var cartService = new CartService(
+                productData.Object,
+                cartStore.Object);
+
+            cartService.DecrementFromCart(1);
+
+            Assert.Equal(3, cart.ItemsCount);
+            Assert.Equal(2, cart.CartItems.Count);
+            Assert.Equal(1, cart.CartItems[0].ProductId);
         }
     }
 }
