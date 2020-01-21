@@ -38,5 +38,8 @@ namespace WebStore.DomainNew.Entities
         /// Распродажа
         /// </summary>
         public bool IsSale { get; set; }
+
+        /// <summary>Удален товар или нет</summary>
+        public bool IsDeleted { get; set; }
     }
 }
